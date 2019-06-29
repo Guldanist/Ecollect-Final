@@ -19,6 +19,10 @@ export var categoriaProducto_model=(sequelize:Sequelize)=>{
         catprod_descripcion:{
             type:DataTypes.STRING(100),
             allowNull:true
+        },
+        catprod_foto:{
+            type:DataTypes.TEXT('medium'),
+            allowNull:false
         }    
     },
     {

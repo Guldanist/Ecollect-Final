@@ -34,11 +34,11 @@ export var publicacion_model=(sequelize:Sequelize)=>{
         publi_cant:{
             type:DataTypes.INTEGER,
             allowNull:true
+        },        
+        publi_preciobase:{
+            type:DataTypes.DECIMAL(5,2),
+            allowNull:true
         },
-        // publi_precio_sugerido:{
-        //     type:DataTypes.DECIMAL(5,2),
-        //     allowNull:true
-        // },
         publi_descripcion:{
             type:DataTypes.TEXT,
             allowNull:true

@@ -13,15 +13,15 @@ export var UsuarioController = {
     createUsuario: (req: Request, res: Response) => {
         //Verificando que el email no se repita
         Usuario.findAll({
-            where: {
-                usu_email: req.body.usu_email
-            }
-        }).then((resultado: any) => {
-            console.log(resultado);
-
-            if (resultado[0] == null) {
-                const nusuario = Usuario.build(req.body);
-
+            where: {[Op.and]: [{usu_email: {[Op.eq]: req.body.usu_email}}, {usu_tiposesion: {[Op.eq]:req.body.usu_tiposesion}}]},
+            }).then((resultado: any) => {
+            
+                console.log(resultado);
+                
+            if (resultado[0] == null || resultado.length==0) 
+            {
+                
+                const nusuario = Usuario.build(req.body);                
                 nusuario.setSaltAndHash(req.body.usu_pass);
                 nusuario.save().then((usuariocreado: any) => {
                     if (usuariocreado) {
@@ -58,12 +58,10 @@ export var UsuarioController = {
     createSocialRegister: (req: Request, res: Response) => {
         
         Usuario.findAll({
-            where: {
-                usu_email: req.body.usu_email
-            }
-        }).then((resultado: any) => {            
+            where: {[Op.and]: [{usu_email: {[Op.eq]: req.body.usu_email}}, {usu_tiposesion: {[Op.eq]:req.body.usu_tiposesion}}]},
+            }).then((resultado: any) => {            
 
-            if (resultado[0] == null) {
+            if (resultado[0] == null || resultado.length==0) {
             
                 Usuario.create(req.body).then((retorno:any)=>{
                     if(retorno){
@@ -104,7 +102,8 @@ export var UsuarioController = {
                         ['usu_tiposesion', 'usu_tiposesion'],
                         ['usu_lng', 'usu_lng'],
                         ['usu_lat', 'usu_lat'],
-                        ['usu_tipousu', 'usu_tipousu']],
+                        ['usu_tipousu', 'usu_tipousu'],
+                        ['usu_avatar', 'usu_avatar']],                        
             where: {[Op.and]: [{usu_id: {[Op.eq]: usu_id}}]},
             }).then((usuario: any) => {
             if (usuario) {
@@ -213,7 +212,7 @@ export var UsuarioController = {
                         usu_salt:usuario_encontrado.usu_salt,
                         usu_hash:usuario_encontrado.usu_hash
                     },{ where: { usu_id: usuario_encontrado.usu_id } }).then((datos_actualizados: any) => {
-                        if (datos_actualizados > 0) {
+                        if (datos_actualizados[0] > 0) {
                             res.status(200).json({
                                 message: "updated",
                                 content: datos_actualizados[0]

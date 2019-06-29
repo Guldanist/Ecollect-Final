@@ -75,8 +75,10 @@ export const Usuario:any=usuario_model(sequelize);
     Cita.belongsTo(Publicacion,{foreignKey:'publi_id'});
     Publicacion.hasMany(Cita,{foreignKey:'publi_id'});
 
-    Cita.belongsTo(Usuario,{foreignKey:'usu_id'});
-    Usuario.hasMany(Cita,{foreignKey:'usu_id'});
+    // Modificado
+    Cita.belongsTo(Oferta,{foreignKey:'ofer_id'});
+    Oferta.hasMany(Cita,{foreignKey:'ofer_id'});
+    // Modificado
 
     Mensaje.belongsTo(Cita,{foreignKey:'cita_id'});
     Cita.hasMany(Mensaje,{foreignKey:'cita_id'});

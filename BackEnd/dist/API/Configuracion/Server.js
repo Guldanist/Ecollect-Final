@@ -5,6 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("./../Configuracion/sequelize");
 const express_1 = __importDefault(require("express"));
+const socket_io_1 = __importDefault(require("socket.io"));
+const http_1 = __importDefault(require("http"));
 // Importando Rutas de API
 const usuario_1 = require("./../Routes/usuario");
 const publicacion_1 = require("../Routes/publicacion");
@@ -17,9 +19,12 @@ class Server {
     constructor() {
         this.app = express_1.default();
         this.PUERTO = process.env.PORT || 3700;
+        this.httpServer = new http_1.default.Server(this.app);
+        this.io = socket_io_1.default(this.httpServer);
         this.ConfigurarBodyPArser();
         this.configurarCORS();
         this.asignarRutas();
+        this.escucharSockets();
     }
     // config BodyPArser
     ConfigurarBodyPArser() {
@@ -37,6 +42,32 @@ class Server {
             next();
         });
     }
+    escucharSockets() {
+        console.log("Escuchando sockets");
+        this.io.on('connect', (cliente) => {
+            console.log("Alguien se conectó :" + cliente.id);
+            cliente.on('disconnect', () => {
+                console.log(`El cliente ${cliente.id} se desconecto`);
+                // this.clientes.remove(cliente.id);
+                // this.io.emit('retorno-usuarios',this.clientes.getClientes());
+            });
+            cliente.on('agregaroferta', (data) => {
+                console.log('datos ... : ' + data);
+                this.io.emit('actualizar-oferta', 'dato recibido');
+            });
+            // cliente.on('enviar-mensaje',(mensaje)=>{
+            //     let objcliente:any=this.clientes.getClienteById(cliente.id);
+            //     let content={
+            //         mensaje:mensaje,
+            //         nombre:objcliente.nombre
+            //     }
+            //     this.io.emit('nuevo-mensaje',content);
+            // });
+            //Cuando el cliente quiere emitir un evento a todos los clientes conectados
+            //excepto a si mismo
+            // cliente.broadcast.emit('evento',contenido);
+        });
+    }
     asignarRutas() {
         this.app.get('/', (req, res) => {
             res.send("Backend Ecollect corriendo");
@@ -51,7 +82,7 @@ class Server {
     }
     IniciarServidor() {
         let port = this.PUERTO;
-        this.app.listen(port, function () {
+        this.httpServer.listen(port, function () {
             console.log(`Servidor corriendo en el puerto ${port}`);
             sequelize_1.sequelize.sync({ force: false }).then(() => {
                 console.log('Base de datos creada con exito');

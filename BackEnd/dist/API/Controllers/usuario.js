@@ -10,12 +10,10 @@ exports.UsuarioController = {
     createUsuario: (req, res) => {
         //Verificando que el email no se repita
         sequelize_1.Usuario.findAll({
-            where: {
-                usu_email: req.body.usu_email
-            }
+            where: { [Op.and]: [{ usu_email: { [Op.eq]: req.body.usu_email } }, { usu_tiposesion: { [Op.eq]: req.body.usu_tiposesion } }] },
         }).then((resultado) => {
             console.log(resultado);
-            if (resultado[0] == null) {
+            if (resultado[0] == null || resultado.length == 0) {
                 const nusuario = sequelize_1.Usuario.build(req.body);
                 nusuario.setSaltAndHash(req.body.usu_pass);
                 nusuario.save().then((usuariocreado) => {
@@ -53,11 +51,9 @@ exports.UsuarioController = {
     },
     createSocialRegister: (req, res) => {
         sequelize_1.Usuario.findAll({
-            where: {
-                usu_email: req.body.usu_email
-            }
+            where: { [Op.and]: [{ usu_email: { [Op.eq]: req.body.usu_email } }, { usu_tiposesion: { [Op.eq]: req.body.usu_tiposesion } }] },
         }).then((resultado) => {
-            if (resultado[0] == null) {
+            if (resultado[0] == null || resultado.length == 0) {
                 sequelize_1.Usuario.create(req.body).then((retorno) => {
                     if (retorno) {
                         res.status(201).json({
@@ -98,7 +94,8 @@ exports.UsuarioController = {
                 ['usu_tiposesion', 'usu_tiposesion'],
                 ['usu_lng', 'usu_lng'],
                 ['usu_lat', 'usu_lat'],
-                ['usu_tipousu', 'usu_tipousu']],
+                ['usu_tipousu', 'usu_tipousu'],
+                ['usu_avatar', 'usu_avatar']],
             where: { [Op.and]: [{ usu_id: { [Op.eq]: usu_id } }] },
         }).then((usuario) => {
             if (usuario) {
@@ -206,7 +203,7 @@ exports.UsuarioController = {
                         usu_salt: usuario_encontrado.usu_salt,
                         usu_hash: usuario_encontrado.usu_hash
                     }, { where: { usu_id: usuario_encontrado.usu_id } }).then((datos_actualizados) => {
-                        if (datos_actualizados > 0) {
+                        if (datos_actualizados[0] > 0) {
                             res.status(200).json({
                                 message: "updated",
                                 content: datos_actualizados[0]

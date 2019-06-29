@@ -37,10 +37,10 @@ exports.publicacion_model = (sequelize) => {
             type: sequelize_1.DataTypes.INTEGER,
             allowNull: true
         },
-        // publi_precio_sugerido:{
-        //     type:DataTypes.DECIMAL(5,2),
-        //     allowNull:true
-        // },
+        publi_preciobase: {
+            type: sequelize_1.DataTypes.DECIMAL(5, 2),
+            allowNull: true
+        },
         publi_descripcion: {
             type: sequelize_1.DataTypes.TEXT,
             allowNull: true

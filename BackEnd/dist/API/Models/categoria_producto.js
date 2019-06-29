@@ -20,6 +20,10 @@ exports.categoriaProducto_model = (sequelize) => {
         catprod_descripcion: {
             type: sequelize_1.DataTypes.STRING(100),
             allowNull: true
+        },
+        catprod_foto: {
+            type: sequelize_1.DataTypes.TEXT('medium'),
+            allowNull: false
         }
     }, {
         timestamps: false,

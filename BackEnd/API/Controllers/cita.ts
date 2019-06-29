@@ -1,6 +1,6 @@
 // CALIFICACION CONTROLER
 import { Request, Response } from 'express';
-import { Cita, Mensaje} from './../Configuracion/sequelize';
+import { Cita, Mensaje, Oferta} from './../Configuracion/sequelize';
 
 const Sequelize=require('sequelize');
 const Op = Sequelize.Op;
@@ -31,7 +31,7 @@ export var CitaController = {
     getCitaByIdPublicacion:(req: Request, res: Response)=>{
         let {publi_id}=req.params;
 
-        Cita.findAll({where:{publi_id},include:[{model:Mensaje}]}).then((respuesta:any)=>{
+        Cita.findAll({where:{publi_id},include:[{model:Mensaje},{model:Oferta}]}).then((respuesta:any)=>{
             if(respuesta.length>0){
                 res.status(200).json({
                     message: "ok",

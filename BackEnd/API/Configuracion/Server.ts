@@ -1,5 +1,7 @@
 import {sequelize} from './../Configuracion/sequelize';
 import express from 'express';
+import socketIO from 'socket.io';
+import http from 'http';
 import {Request,Response,NextFunction} from 'express'
 
 // Importando Rutas de API
@@ -15,13 +17,20 @@ export default class Server{
 
     public app:express.Application;
     public PUERTO:any;
+    // Variables para uso de Socket
+    public httpServer:http.Server;
+    public io:socketIO.Server;
 
     constructor(){
         this.app=express();
         this.PUERTO=process.env.PORT || 3700;
+        this.httpServer=new http.Server(this.app);
+        this.io=socketIO(this.httpServer);     
+
         this.ConfigurarBodyPArser();
         this.configurarCORS();
-        this.asignarRutas();         
+        this.asignarRutas();     
+        this.escucharSockets();    
     }
         
     // config BodyPArser
@@ -41,6 +50,39 @@ export default class Server{
             next();
         });
     } 
+    escucharSockets(){
+
+        console.log("Escuchando sockets");
+
+        this.io.on('connect',(cliente)=>{
+            console.log("Alguien se conectó :"+cliente.id);            
+
+            cliente.on('disconnect',()=>{
+                console.log(`El cliente ${cliente.id} se desconecto`);
+                // this.clientes.remove(cliente.id);
+                // this.io.emit('retorno-usuarios',this.clientes.getClientes());
+            });
+
+            cliente.on('agregaroferta',(data)=>{                
+                console.log('datos ... : '+ data);                
+                this.io.emit('actualizar-oferta','dato recibido');
+            });
+            
+            // cliente.on('enviar-mensaje',(mensaje)=>{
+            //     let objcliente:any=this.clientes.getClienteById(cliente.id);
+            //     let content={
+            //         mensaje:mensaje,
+            //         nombre:objcliente.nombre
+            //     }
+            //     this.io.emit('nuevo-mensaje',content);
+            // });
+            //Cuando el cliente quiere emitir un evento a todos los clientes conectados
+            //excepto a si mismo
+            // cliente.broadcast.emit('evento',contenido);
+           
+        });
+    }
+
 
 
     asignarRutas(){
@@ -58,7 +100,7 @@ export default class Server{
 
     IniciarServidor(){
         let port=this.PUERTO;
-        this.app.listen(port,function(){
+        this.httpServer.listen(port,function(){
             console.log(`Servidor corriendo en el puerto ${port}` ); 
 
                 sequelize.sync({force:false}).then(()=>{

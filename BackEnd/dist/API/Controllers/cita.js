@@ -28,7 +28,7 @@ exports.CitaController = {
     },
     getCitaByIdPublicacion: (req, res) => {
         let { publi_id } = req.params;
-        sequelize_1.Cita.findAll({ where: { publi_id }, include: [{ model: sequelize_1.Mensaje }] }).then((respuesta) => {
+        sequelize_1.Cita.findAll({ where: { publi_id }, include: [{ model: sequelize_1.Mensaje }, { model: sequelize_1.Oferta }] }).then((respuesta) => {
             if (respuesta.length > 0) {
                 res.status(200).json({
                     message: "ok",

@@ -66,8 +66,10 @@ exports.Publicacion.belongsTo(exports.CategoriaProducto, { foreignKey: 'catpro_i
 exports.CategoriaProducto.hasMany(exports.Publicacion, { foreignKey: 'catpro_id' });
 exports.Cita.belongsTo(exports.Publicacion, { foreignKey: 'publi_id' });
 exports.Publicacion.hasMany(exports.Cita, { foreignKey: 'publi_id' });
-exports.Cita.belongsTo(exports.Usuario, { foreignKey: 'usu_id' });
-exports.Usuario.hasMany(exports.Cita, { foreignKey: 'usu_id' });
+// Modificado
+exports.Cita.belongsTo(exports.Oferta, { foreignKey: 'ofer_id' });
+exports.Oferta.hasMany(exports.Cita, { foreignKey: 'ofer_id' });
+// Modificado
 exports.Mensaje.belongsTo(exports.Cita, { foreignKey: 'cita_id' });
 exports.Cita.hasMany(exports.Mensaje, { foreignKey: 'cita_id' });
 exports.Mensaje.belongsTo(exports.Usuario, { foreignKey: 'usu_envia' });
