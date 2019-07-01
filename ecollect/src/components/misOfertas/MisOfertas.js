@@ -32,7 +32,7 @@ export default class MisOfertas extends Component {
         let hoy = moment(new Date());
         let diferencia = hoy.diff(fecha1, 'day')
         if (diferencia > 0) {
-            return `Hace ${diferencia} dias.`;
+            return `Hace ${diferencia} días.`;
         } else {
             let diferencia = hoy.diff(fecha1, 'hours')
             if (diferencia > 0) {
@@ -57,27 +57,35 @@ export default class MisOfertas extends Component {
                             <Card.Body>
                                 <Row>
                                     <Col sm={9}>
-                                        <Card.Title> Publicacion: #{oferta.publi_id} </Card.Title>
+                                        <Card.Title> Publicación: #{oferta.publi_id} </Card.Title>
                                         <hr />
                                         <Row>
                                             <Col sm={6}>
                                                 <Card.Img src={oferta.publi_foto} />
-                                                <button className="btn btn-primary mb-5" onClick={() => { this.irAPublicacion(oferta.publi_id) }}>Ver publicacion</button>
+                                                <button className="btn btn-primary" onClick={() => { this.irAPublicacion(oferta.publi_id) }}>Ver publicacion</button>
                                             </Col>
                                             <Col sm={6}>
                                                 <Card.Text> Publicado Por: {oferta.usu_nombre} </Card.Text>
-                                                <Card.Text> Fecha Publicacion: {this.CalcularFechaPublicacion(oferta.publi_fecha)} </Card.Text>
-                                                <Card.Text> Estado: {oferta.publi_estado} </Card.Text>
+                                                <Card.Text> Fecha de Publicación: {this.CalcularFechaPublicacion(oferta.publi_fecha)} </Card.Text>
+                                                <Card.Text> Estado: {oferta.publi_estado?
+                                                (
+                                                    <p>Publicado <i class="fas fa-check"></i></p>
+                                                ):(<p>Finalizada<i class="fas fa-times"></i></p>)} </Card.Text>
+                                                <Card.Text> Teléfono: {oferta.usu_telefono} </Card.Text>
                                             </Col>
                                         </Row>
-
+                                        <br/>
+                                        <br/>
                                     </Col>
                                     <Col sm={3}>
                                         <Card.Title>Oferta</Card.Title>
                                         <hr />
                                         <Card.Text> Fecha: {this.CalcularFechaPublicacion(oferta.ofer_fecha)} </Card.Text>
                                         <Card.Text> Monto de Oferta: S/.{oferta.ofer_precio_oferta} </Card.Text>
-                                        <Card.Text> Estado: {oferta.ofer_estado} </Card.Text>
+                                        <Card.Text> Estado: {oferta.ofer_estado?
+                                                (
+                                                    <p>Activa <i class="fas fa-check"></i></p>
+                                                ):(<p>Finalizada<i class="fas fa-times"></i></p>)} </Card.Text>
                                     </Col>
                                 </Row>
                             </Card.Body>
