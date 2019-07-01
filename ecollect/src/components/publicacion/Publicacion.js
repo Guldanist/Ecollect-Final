@@ -632,8 +632,9 @@ export class Publicacion extends Component {
                     </Dialog>
 
 
+                            {/* Toast */}
+                    <ToastsContainer  position={ToastsContainerPosition.TOP_CENTER} timer={5000} store={ToastsStore} />
 
-                    <ToastsContainer position={ToastsContainerPosition.TOP_CENTER} timer={5000} store={ToastsStore} />
                 </React.Fragment >
 
             )
