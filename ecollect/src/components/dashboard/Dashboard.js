@@ -136,7 +136,7 @@ export default class Dashboard extends Component {
                                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                     <ul className="nav navbar-nav ml-auto">
                                         <li id="menuNavBar" className="nav-item" style={{display:'flex', alignContent:'center',alignItems:'center'}}>
-                                            <Badge style={{marginRight:10,marginLeft:10,color:'#A1A1A1'}} badgeContent={4} color="secondary">
+                                            <Badge style={{marginRight:10,marginLeft:10,color:'#A1A1A1'}} badgeContent={1} color="secondary">
                                                 <MailIcon />
                                             </Badge>
                                             <Avatar style={{marginRight:10,marginLeft:10,borderRadius:'50%'}} alt="" src={this.obtenerFotoUsuario()}  />

@@ -22,7 +22,7 @@ export default class Todos extends Component {
             console.log(usuLocalStorage);
             console.log(usuLocalStorage.id);
 
-            fetch(`https://backend-ecollect.herokuapp.com/api/publicacion/buscarByIdUsuario/${usuLocalStorage.id}/p`).then((response) => {
+            fetch(`https://backend-ecollect.herokuapp.com/api/publicacion/buscarByIdUsuario/${usuLocalStorage.id}/t`).then((response) => {
                 return response.json();
             }).then((data) => {
                 console.log(data.content);

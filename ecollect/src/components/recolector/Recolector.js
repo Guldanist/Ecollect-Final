@@ -101,12 +101,9 @@ export default class Recolector extends Component {
         return `Hace unos minutos.`;
       }
     }
-    // console.log(hoy.diff(fecha1,'day'));
-    // console.log(React.key);
-
-
-    // return hoy.diff(fecha1,'day');
   }
+
+
 
   BuscarPublicacionFiltro = async() => {
     await this.setTotalRegistros();
@@ -251,7 +248,7 @@ export default class Recolector extends Component {
           </div>
 
           {/* Boton flotante Agregar */}
-          <Fab color="primary" aria-label="Add" style={{position:"fixed",bottom:'50px',right:'50px'}} onClick={this.agregarPublicacion}>
+          <Fab id="btnflotantePublicacion" color="primary" aria-label="Add" style={{position:"fixed",bottom:'50px',right:'50px'}} onClick={this.agregarPublicacion}>
             <AddIcon />
           </Fab>
 

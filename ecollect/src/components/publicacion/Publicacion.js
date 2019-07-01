@@ -55,11 +55,11 @@ export class Publicacion extends Component {
             direccionPublicacion: '',
             objOfertas: [],
             displayBtnAceptarOferta: '',
-            displayBtnOfertar: '',                        
+            displayBtnOfertar: '',
             displayBtnCrearOferta: '',
             show: false,
             endpoint: "https://backend-ecollect.herokuapp.com/",
-            openModalAceptOferta: false            
+            openModalAceptOferta: false
         }
     }
 
@@ -152,8 +152,8 @@ export class Publicacion extends Component {
                 displayBtnAnularPublicacion: 'none',
                 displayBtnAceptarOferta: 'none',
             });
-        } 
-        if(this.objPublicacion.publi_estado==='e'){
+        }
+        if (this.objPublicacion.publi_estado === 'e') {
             this.setState({
                 displayBtnOfertar: 'none',
                 displayBtnAnularPublicacion: 'none',
@@ -193,7 +193,7 @@ export class Publicacion extends Component {
     //     // this.inputComentarioOferta.current.value=objoferta.ofer_comentario;     
     // }
     CrearOferta = () => {
-        let usuario = JSON.parse(localStorage.getItem('usuario-ecollect'));        
+        let usuario = JSON.parse(localStorage.getItem('usuario-ecollect'));
         let objoferta = {
             ofer_precio_oferta: this.inputValorOferta.current.value,
             ofer_comentario: this.inputComentarioOferta.current.value,
@@ -214,9 +214,9 @@ export class Publicacion extends Component {
             .then(response => {
                 return response.json();
             })
-            .then((data) => {                
+            .then((data) => {
                 if (data.message === "created") {
-                    this.BuscarOfertasByIdPublicacion(this.props.match.params.publi_id);                    
+                    this.BuscarOfertasByIdPublicacion(this.props.match.params.publi_id);
                     this.socket.emit('agregaroferta', { mensaje: 'se ha agregado una oferta' })
                     ToastsStore.success("Oferta creada con Exito !!!.")
                 }
@@ -224,7 +224,7 @@ export class Publicacion extends Component {
                     console.log('no se creo nada');
                     ToastsStore.error("No se creo la Oferta. Error !!!.")
                 }
-            }).catch((error) => {                
+            }).catch((error) => {
                 ToastsStore.error("No se creo la Oferta. Error !!!.")
             });
         this.setState({ show: false });
@@ -272,10 +272,13 @@ export class Publicacion extends Component {
                     // ToastsStore.success("Oferta Actualizada !!!.")
                     // console.log(data.message);
                 });
-                this.BuscarPublicacionById(this.props.match.params.publi_id)                
-                ToastsStore.success("Cita creada con Exito !!!.")      
+                this.BuscarPublicacionById(this.props.match.params.publi_id)
+                ToastsStore.success("Cita creada con Exito !!!.")
+                setTimeout(() => {
+                    this.props.history.push("/misOfertas");        
+                }, 2000);
 
-            }else{
+            } else {
                 ToastsStore.warning("No se creo la Cita !!!.")
                 // this.setState({ openModalAceptOferta: false });
             }
@@ -283,15 +286,15 @@ export class Publicacion extends Component {
             this.setState({ openModalAceptOferta: false });
             //Ir a Mis Ofertas
             // this.props.history.push("/")
-                         
+
         });
     }
 
-    AbrirModalAceptarOferta = async(ofer_id) => {
+    AbrirModalAceptarOferta = async (ofer_id) => {
         // console.log('id oferta actual : '+this.state.idoferta);
         this.idoferta = await ofer_id;
         await this.setState({
-            openModalAceptOferta: true            
+            openModalAceptOferta: true
         });
         // console.log('id oferta: '+this.idoferta);        
     }
@@ -299,19 +302,111 @@ export class Publicacion extends Component {
         this.setState({ openModalAceptOferta: false });
     }
 
-    verificarEstadoOferta=(estado)=>{
-        if(estado==='e'){
+    verificarEstadoOferta = (estado) => {
+        if (estado === 'e') {
             return '';
-        }else{
-            return'none';
+        } else {
+            return 'none';
         }
     }
-    verificarEstadoOPublicacion=(estado)=>{
-        if(estado==='e'){
+    verificarEstadoOPublicacion = (estado) => {
+        if (estado === 'e') {
             return '';
-        }else{
-            return'none';
+        } else {
+            return 'none';
         }
+    }
+
+    colorAleatorio = () => {
+        // let color;
+        // switch (true) {
+        //     case letra.toUpperCase == 'A':
+        //         color = '#FF6E33'
+        //         break;
+        //     case letra.toUpperCase == 'B':
+        //         color = '#3383FF'
+        //         break;
+        //     case letra.toUpperCase == 'C':
+        //         color = '#5E33FF'
+        //         break;
+        //     case letra.toUpperCase == 'D':
+        //         color = '#E033FF'
+        //         break;
+        //     case letra.toUpperCase == 'E':
+        //         color = '#CB5EC5'
+        //         break;
+        //     case letra.toUpperCase == 'F':
+        //         color = '#4EABC4'
+        //         break;
+        //     case letra.toUpperCase == 'G':
+        //         color = '#20B78E'
+        //         break;
+        //     case letra.toUpperCase == 'H':
+        //         color = '#DA170A'
+        //         break;
+        //     case letra.toUpperCase == 'I':
+        //         color = '#B93370'
+        //         break;
+        //     case letra.toUpperCase == 'J':
+        //         color = '#27728E'
+        //         break;
+        //     case letra.toUpperCase == 'K':
+        //         color = '#1CB24A'
+        //         break;
+        //     case letra.toUpperCase == 'L':
+        //         color = '#60B21C'
+        //         break;
+        //     case letra.toUpperCase == 'M':
+        //         color = '#DEEE76'
+        //         break;
+        //     case letra.toUpperCase == 'N':
+        //         color = '#820054'
+        //         break;
+        //     case letra.toUpperCase == 'Ñ':
+        //         color = '#25AFF3'
+        //         break;
+        //     case letra.toUpperCase == 'O':
+        //         color = '#D35400'
+        //         break;
+        //     case letra.toUpperCase == 'P':
+        //         color = '34495E'
+        //         break;
+        //     case letra.toUpperCase == 'Q':
+        //         color = '#82E0AA'
+        //         break;
+        //     case letra.toUpperCase == 'R':
+        //         color = '#593799'
+        //         break;
+        //     case letra.toUpperCase == 'S':
+        //         color = '#993790'
+        //         break;
+        //     case letra.toUpperCase == 'T':
+        //         color = '#379971'
+        //         break;
+        //     case letra.toUpperCase == 'U':
+        //         color = '#929937'
+        //         break;
+        //     case letra.toUpperCase == 'V':
+        //         color = '#EA7550'
+        //         break;
+        //     case letra.toUpperCase == 'W':
+        //         color = '#A569BD'
+        //         break;
+        //     case letra.toUpperCase == 'X':
+        //         color = '#707B7C'
+        //         break;
+        //     case letra.toUpperCase == 'Y':
+        //         color = '#17202A'
+        //         break;
+        //     case letra.toUpperCase == 'Z':
+        //         color = '#CB4335'
+        //         break;
+        //     default:
+        //         color = '#34495E'
+        //         break;
+        // }
+        return "#"+((1<<24)*Math.random()|0).toString(16);
+        // return color;
     }
 
     render() {
@@ -327,7 +422,7 @@ export class Publicacion extends Component {
                             <Card.Header style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                                 <label style={{ fontWeight: 'bold', marginTop: 5 }}><Button style={{ marginRight: 10 }} onClick={() => { this.props.history.push("/publicaciones") }} variant="outline-info"><i class="fas fa-chevron-left"></i></Button> Publicado por : </label>
                                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                                    <Avatar style={{ marginLeft: 10, marginRight: 5 }}>{this.objPublicacion.t_usuario.usu_nombre.charAt(0).toUpperCase()}</Avatar>
+                                    <Avatar style={{ marginLeft: 10, marginRight: 5, backgroundColor: this.colorAleatorio() }}>{this.objPublicacion.t_usuario.usu_nombre.charAt(0).toUpperCase()}</Avatar>
                                     <label style={{ marginTop: 5 }}>{this.objPublicacion.t_usuario.usu_nombre}</label>
                                 </div>
                             </Card.Header>
@@ -360,13 +455,13 @@ export class Publicacion extends Component {
                                         <label style={{ marginLeft: 30 }}><i style={{ marginRight: 10 }} class="fas fa-map-marker-alt"></i>{this.state.direccionPublicacion}</label>
                                     </div>
                                 </div>
-                            </ListGroup.Item> 
+                            </ListGroup.Item>
                             {/* Mapa */}
                             <ListGroup.Item>
                                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                     <Button variant="outline-secondary" onClick={() => { this.setState({ showModalMapa: true }) }}>Ver Mapa</Button>
-                                    <Button style={{ display: this.state.displayBtnAnularPublicacion }} variant="primary">Anular Publicación</Button>
-                                    <img style={{height:50,display:this.verificarEstadoOPublicacion(this.objPublicacion.publi_estado)}} src={require('./img/finalizado.png')}></img>
+                                    <Button style={{ display: this.state.displayBtnAnularPublicacion }} variant="secondary">Anular Publicación</Button>
+                                    <img style={{ height: 50, display: this.verificarEstadoOPublicacion(this.objPublicacion.publi_estado) }} src={require('./img/finalizado.png')}></img>
                                 </div>
                             </ListGroup.Item>
 
@@ -378,7 +473,7 @@ export class Publicacion extends Component {
                                 <Card style={{ width: '25rem', display: 'flex' }}>
                                     <Card.Header style={{ display: 'flex', justifyContent: 'space-between' }}>
                                         <label style={{ marginTop: 5 }}>OFERTAS <strong style={{ marginLeft: 10 }}>{this.state.objOfertas.length}</strong></label>
-                                        <Button style={{ display: this.state.displayBtnOfertar }} variant="primary" onClick={this.handleShow}>Ofertar</Button>
+                                        <Button className='btn-publicacion' style={{ display: this.state.displayBtnOfertar }} onClick={this.handleShow}>Ofertar</Button>
                                     </Card.Header>
                                 </Card>
                                 {
@@ -389,7 +484,7 @@ export class Publicacion extends Component {
                                                 {/* <label style={{ fontWeight: 'bold', margin: 10 }}>Publicado por : </label> */}
                                                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                                     <div style={{ display: 'flex', margin: 10, flexDirection: 'row', alignItems: 'center' }}>
-                                                        <Avatar style={{ margin: 10 }}>{oferta.t_usuario.usu_nombre.charAt(0).toUpperCase()}</Avatar>
+                                                        <Avatar style={{ margin: 10, backgroundColor: this.colorAleatorio() }}>{oferta.t_usuario.usu_nombre.charAt(0).toUpperCase()}</Avatar>
                                                         <div style={{ alignSefl: 'center', display: 'flex', flexDirection: 'column' }}>
                                                             <label style={{ marginTop: 5 }}>{oferta.t_usuario.usu_nombre}</label>
                                                             <small>{this.CalcularFechaPublicacion(oferta.ofer_fecha)}</small>
@@ -428,12 +523,12 @@ export class Publicacion extends Component {
                                                 </ExpansionPanel>
 
                                                 <ListGroup.Item style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                                    <Button style={{ display: this.state.displayBtnAceptarOferta }} variant="primary" onClick={() => { this.AbrirModalAceptarOferta(oferta.ofer_id) }}>Aceptar Oferta</Button>
+                                                    <Button style={{ display: this.state.displayBtnAceptarOferta }} className='btn-publicacion' onClick={() => { this.AbrirModalAceptarOferta(oferta.ofer_id) }}>Aceptar Oferta</Button>
                                                     {/* <Button variant="primary" onClick={() => { this.verOferta(oferta) }}>Ver Oferta</Button> */}
-                                                    <div style={{display:this.verificarEstadoOferta(oferta.ofer_estado)}}>
-                                                        <i style={{color:'#018B41',marginRight:10}} class="far fa-check-circle fa-2x"></i>
+                                                    <div style={{ display: this.verificarEstadoOferta(oferta.ofer_estado) }}>
+                                                        <i style={{ color: '#018B41', marginRight: 10 }} class="far fa-check-circle fa-2x"></i>
                                                         <label>Oferta Aceptada</label>
-                                                    </div>                                                    
+                                                    </div>
                                                 </ListGroup.Item>
                                             </Card>
 
@@ -450,7 +545,7 @@ export class Publicacion extends Component {
 
 
 
-                    {/* Modal Para el Mapa */}
+                    {/* Modal Para el Mapa */}  
                     <Modal
                         show={this.state.showModalMapa}
                         onHide={() => { this.setState({ showModalMapa: false }) }}
@@ -463,6 +558,7 @@ export class Publicacion extends Component {
                             </Modal.Title>
                         </Modal.Header>
                         <Modal.Body style={{ height: '30em' }}>
+                            <div style={{position:'relative', width:'100%',height:'100%'}}>
                             <Map google={this.props.google}
                                 initialCenter={{ lat: +this.objPublicacion.publi_lat, lng: +this.objPublicacion.publi_lng }}
                                 zoom={17}
@@ -472,6 +568,7 @@ export class Publicacion extends Component {
                                     name={this.state.direccionPublicacion}
                                     position={{ lat: +this.objPublicacion.publi_lat, lng: +this.objPublicacion.publi_lng }} />
                             </Map>
+                            </div>
                         </Modal.Body>
                     </Modal>
 
@@ -479,28 +576,28 @@ export class Publicacion extends Component {
 
                     <Modal show={this.state.show} onHide={this.handleClose}>
                         <Modal.Header closeButton>
-                            <Modal.Title>Ofertar</Modal.Title>
+                            <Modal.Title>AGREGAR OFERTA</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             {/* Formulario */}
                             <Form>
                                 <Form.Group controlId="exampleForm.ControlInput1">
                                     <Form.Label>Valor de La Oferta</Form.Label>
-                                    <Form.Control ref={this.inputValorOferta} type="number" placeholder="Ejm. 10.00" />
+                                    <Form.Control className='control-left' ref={this.inputValorOferta} type="number" placeholder="Ejm. 10.00" />
                                 </Form.Group>
                                 <Form.Group controlId="exampleForm.ControlInput1">
                                     <Form.Label>Ingrese un Comentario</Form.Label>
-                                    <Form.Control ref={this.inputComentarioOferta} as="textarea" rows="3" />
+                                    <Form.Control className='control-left' ref={this.inputComentarioOferta} as="textarea" rows="3" />
                                 </Form.Group>
                             </Form>
-
-
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button style={{ display: this.state.displayBtnCrearOferta }} variant="primary" onClick={this.CrearOferta}>
+                            <Button className='btn-publicacion' style={{ display: this.state.displayBtnCrearOferta }} onClick={this.CrearOferta}>
+                                <i class="fas fa-plus" style={{ marginRight: 10 }}></i>
                                 Ofertar
-                                </Button>
+                            </Button>
                             <Button variant="secondary" onClick={this.handleClose}>
+                                <i class="fas fa-ban" style={{ marginRight: 10 }}></i>
                                 Cancelar
                             </Button>
                         </Modal.Footer>
@@ -513,22 +610,22 @@ export class Publicacion extends Component {
                         aria-labelledby="alert-dialog-title"
                         aria-describedby="alert-dialog-description"
                     >
-                        <DialogTitle id="alert-dialog-title">{"¿Como deseas contactar con el Ofertante?"}</DialogTitle>
+                        <DialogTitle id="alert-dialog-title">{"¿Esta seguro de aceptar la oferta?"}</DialogTitle>
                         <DialogContent>
                             <DialogContentText id="alert-dialog-description">
 
-                                <Button style={{ marginRight: 10 }} onClick={() => { this.CrearCita() }} variant="outline-secondary">
-                                    Ver Información
-                            </Button>
-                                <Button style={{ marginLeft: 10 }} onClick={() => { this.CerrarModalAceptarOferta() }} variant="outline-secondary">
+                                Esta accion eviara un mensaje de texto(SMS) al usuario Ofertante para informarle
+                                que su oferta fue aceptada y pueda contactarse con Ud.
+                                {/* <Button style={{ marginLeft: 10 }} onClick={() => { this.CerrarModalAceptarOferta() }} variant="outline-secondary">
                                     Enviar Mensaje
-                            </Button>
-
+                            </Button> */}
                             </DialogContentText>
                         </DialogContent>
                         <DialogActions>
-
-                            <Button onClick={this.CerrarModalAceptarOferta} color="primary" autoFocus>
+                            <Button className='btn-modals' style={{ marginRight: 10 }} onClick={() => { this.CrearCita() }}>
+                                Enviar Aviso
+                            </Button>
+                            <Button className='btn-modals' onClick={this.CerrarModalAceptarOferta}>
                                 Cancelar
                         </Button>
                         </DialogActions>
