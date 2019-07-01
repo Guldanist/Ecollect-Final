@@ -347,7 +347,8 @@ export var PublicacionController = {
     },
     getPublicacionByIdUsuario: (req: Request, res: Response) => {
         let { usu_id,publi_estado } = req.params;
-        Publicacion.findAll({  where: { [Op.and]: [{ usu_id: { [Op.eq]: usu_id } },{ publi_estado: { [Op.eq]: publi_estado } }] },order:[['publi_fecha', 'DESC']], include: [{ model: Oferta },{model:Foto}] })       
+        if (publi_estado ==='t'){
+            Publicacion.findAll({  where: { usu_id:usu_id},order:[['publi_fecha', 'DESC']], include: [{ model: Oferta },{model:Foto}] })       
             .then((respuesta: any) => {
                 if (respuesta) {
                     res.status(200).json({
@@ -360,7 +361,33 @@ export var PublicacionController = {
                         content: null
                     });
                 }
+            }).catch((error:any)=>{
+                res.status(500).json({
+                    message: "failed",
+                    content: error
+                });
             });
+        }else{
+            Publicacion.findAll({  where: { [Op.and]: [{ usu_id: { [Op.eq]: usu_id } },{ publi_estado: { [Op.eq]: publi_estado } }] },order:[['publi_fecha', 'DESC']], include: [{ model: Oferta },{model:Foto}] })       
+            .then((respuesta: any) => {
+                if (respuesta) {
+                    res.status(200).json({
+                        message: "ok",
+                        content: respuesta
+                    });
+                } else {
+                    res.status(500).json({
+                        message: "not found",
+                        content: null
+                    });
+                }
+            }).catch((error:any)=>{
+                res.status(500).json({
+                    message: "failed",
+                    content: error
+                });
+            });
+        }        
     },
     cambiarEstadoPublicacionById: (req: Request, res: Response) => {
         let { publi_id, publi_estado } = req.params;

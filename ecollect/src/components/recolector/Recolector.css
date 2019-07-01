@@ -29,14 +29,14 @@
     justify-content: center;
 }
 
-img{
+.imagen-publicacion{
     height: 200px; 
     width: 100%; 
     display: block;
     padding: 5px;
     border-radius: 10px;
 }
-img:hover{
+.imagen-publicacion:hover{
   transition:all 0.3s ease;
   transform: scale(0.9);
 }
@@ -76,6 +76,17 @@ img:hover{
 
 .pagination-item:hover:not(.pagination-active){ 
   background-color:rgb(72,144,178);
+}
+
+.btn-publicacion{
+  background-color: #4CAF50 !important;
+  color: white !important;
+}
+
+.btn-publicacion:hover{
+  background-color: #F8F9FA !important;
+  color:#4CAF50 !important;
+  border:1px solid #4CAF50 !important;  
 }
 
 /* .botonAdd{

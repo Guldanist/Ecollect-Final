@@ -347,21 +347,50 @@ exports.PublicacionController = {
     },
     getPublicacionByIdUsuario: (req, res) => {
         let { usu_id, publi_estado } = req.params;
-        sequelize_1.Publicacion.findAll({ where: { [Op.and]: [{ usu_id: { [Op.eq]: usu_id } }, { publi_estado: { [Op.eq]: publi_estado } }] }, order: [['publi_fecha', 'DESC']], include: [{ model: sequelize_1.Oferta }, { model: sequelize_1.Foto }] })
-            .then((respuesta) => {
-            if (respuesta) {
-                res.status(200).json({
-                    message: "ok",
-                    content: respuesta
-                });
-            }
-            else {
+        if (publi_estado === 't') {
+            sequelize_1.Publicacion.findAll({ where: { usu_id: usu_id }, order: [['publi_fecha', 'DESC']], include: [{ model: sequelize_1.Oferta }, { model: sequelize_1.Foto }] })
+                .then((respuesta) => {
+                if (respuesta) {
+                    res.status(200).json({
+                        message: "ok",
+                        content: respuesta
+                    });
+                }
+                else {
+                    res.status(500).json({
+                        message: "not found",
+                        content: null
+                    });
+                }
+            }).catch((error) => {
                 res.status(500).json({
-                    message: "not found",
-                    content: null
+                    message: "failed",
+                    content: error
                 });
-            }
-        });
+            });
+        }
+        else {
+            sequelize_1.Publicacion.findAll({ where: { [Op.and]: [{ usu_id: { [Op.eq]: usu_id } }, { publi_estado: { [Op.eq]: publi_estado } }] }, order: [['publi_fecha', 'DESC']], include: [{ model: sequelize_1.Oferta }, { model: sequelize_1.Foto }] })
+                .then((respuesta) => {
+                if (respuesta) {
+                    res.status(200).json({
+                        message: "ok",
+                        content: respuesta
+                    });
+                }
+                else {
+                    res.status(500).json({
+                        message: "not found",
+                        content: null
+                    });
+                }
+            }).catch((error) => {
+                res.status(500).json({
+                    message: "failed",
+                    content: error
+                });
+            });
+        }
     },
     cambiarEstadoPublicacionById: (req, res) => {
         let { publi_id, publi_estado } = req.params;

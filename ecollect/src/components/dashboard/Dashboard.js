@@ -10,6 +10,7 @@ import Mensaje from '../mensaje/Mensaje'
 import Reciclar from '../reciclar/Reciclar'
 import Publicaciones from '../recolector/Recolector'
 import Publicacion from '../publicacion/Publicacion'
+import Button from 'react-bootstrap/Button'
 
 
 import Badge from '@material-ui/core/Badge';
@@ -75,15 +76,18 @@ export default class Dashboard extends Component {
 
                 <div className="wrapper">
 
-
                     <nav id="sidebar">
                         <div className="sidebar-header">
-                            <h2>E-Collect</h2>
+                            {/* Imagen logo Ecolect */}
+                            <img src={require('./../../assets/img/logo_negat_ecollect.png')}></img>                            
                         </div>
+                        <hr className="my-1 " style={{color:'white'}}/>
+                        <div></div>
+
 
                         <ul className="list-unstyled components">
-                            <Link className="nav-link" component={Link} to='/Home'>Recicla con Ecollect</Link>
-                            <li className="active">
+                            {/* <Link className="nav-link" component={Link} to='/Home'>Recicla con Ecollect</Link> */}
+                            <li className="">
                                 <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">Usuario</a>
                                 <ul className="collapse list-unstyled" id="homeSubmenu">
                                     <li>
@@ -118,10 +122,12 @@ export default class Dashboard extends Component {
                         <nav className="navbar navbar-expand-lg navbar-light bg-light">
                             <div className="container-fluid">
 
-                                <button type="button" id="sidebarCollapse" onClick={this.ClickToggleSidebar} className="btn btn-info">
-                                    <i className="fas fa-align-left"></i>
-                                    <span>Menu</span>
-                                </button>
+                                {/* <button  type="button" id="sidebarCollapse" onClick={this.ClickToggleSidebar} className="btn">
+                                    <i style={{border:'1px solid #A1A1A1',padding:10,borderRadius:5,color:'#A1A1A1',}} class="fas fa-align-justify"></i>                                   
+                                </button> */}
+                                {/* <Button variant="outline-secondary"> */}
+                                    <i onClick={this.ClickToggleSidebar} id='sidebarbutton' style={{border:'1px solid #A1A1A1',padding:10,borderRadius:5,color:'#A1A1A1',}} class="fas fa-align-justify"></i>    
+                                {/* </Button> */}
 
                                 <button className="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                     <i className="fas fa-align-justify"></i>
@@ -129,16 +135,14 @@ export default class Dashboard extends Component {
 
                                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                     <ul className="nav navbar-nav ml-auto">
-                                        <li className="nav-item" style={{display:'flex',alignContent:'center',alignItems:'center'}}>
-
-                                            <Badge style={{marginRight:10,marginLeft:10}} badgeContent={4} color="primary">
+                                        <li id="menuNavBar" className="nav-item" style={{display:'flex', alignContent:'center',alignItems:'center'}}>
+                                            <Badge style={{marginRight:10,marginLeft:10,color:'#A1A1A1'}} badgeContent={4} color="secondary">
                                                 <MailIcon />
                                             </Badge>
                                             <Avatar style={{marginRight:10,marginLeft:10,borderRadius:'50%'}} alt="" src={this.obtenerFotoUsuario()}  />
                                             <label style={{marginRight:10,marginLeft:10,marginTop:5}}>{this.state.usuario.nombre}</label>                                            
                                             <Link style={{marginRight:10,marginLeft:10}} onClick={this.Salir}>Salir</Link>
-                                            {/* Menu */}
-                                            
+                                            {/* Menu */}                                            
                                         </li>
                                     </ul>
                                 </div>

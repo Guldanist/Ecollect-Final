@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import './Login.css';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
+
 // import utils from './../utils/utils'
 
 export default class Login extends Component {
@@ -219,14 +220,14 @@ export default class Login extends Component {
     }
     render() {
         return (
-            <div className="container">
+            <div className="container" style={{display:'flex',justifyContent:'center'}}>
                 <div className="row">
-                    <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
-                        <div className="card card-signin my-5">
-                            <div className="card-body">
+                    <div className="">
+                        <div className="card card-signin my-3" style={{width:300}}>
+                            <div className="card-body" style={{width:300}}>
                                 {/* <h5 className="card-title text-center">Iniciar Sesión</h5> */}
                                 <div className="content-logo">
-                                    <img className="logo-login" id="loginlogo" alt="" src={require('./img/imagen.jpg')} />
+                                    <img className="logo-login" id="loginlogo" alt="" src={require('./../../assets/img/logo_ecollect.png')} />
                                 </div>
                                 <form className="form-signin" onSubmit={this.submitForm}>
                                     <hr className="my-1" />
@@ -252,15 +253,15 @@ export default class Login extends Component {
 
                                     </div>
 
-                                    <button onClick={this.login} className="btn btn-lg btn-primary btn-block text-uppercase" >Iniciar</button>
+                                    <button onClick={this.login} className="btn btn-md btn-primary btn-block text-uppercase" >Iniciar</button>
                                     <hr className="my-1" />
-                                    <GoogleLogin className="btn-block"
+                                    <GoogleLogin  className="btn-block mt-2 btn-google"
                                         clientId="499637178396-0rd7ne99bkhkqvvi3bj1h8eif8oi5a3n.apps.googleusercontent.com"
-
                                         onSuccess={this.LoginGoogle}
                                         onFailure={this.LoginGoogle}
+                                        style={{alignSelf:'center'}}
                                     >
-                                        <span> Login with Google</span>
+                                        <span> Login con google</span>
                                     </GoogleLogin>
 
                                     {/* <button className="btn btn-lg btn-google btn-block text-uppercase" ><i className="fab fa-google mr-2"></i> Login con Google</button> */}
@@ -268,13 +269,15 @@ export default class Login extends Component {
                                         appId="468853403866304"
                                         fields="name,email,picture"
                                         callback={this.LoginFacebook}
-                                        cssClass="btn btn-lg btn-facebook btn-block text-uppercase"
-                                    />
+                                        cssClass="btn btn-lg btn-facebook btn-block text-uppercase mt-2 mb-2"
+                                        icon="fa-facebook"   
+                                        textButton=' Login con Facebook'                                     
+                                    ></FacebookLogin>
                                     {/* <button className="btn btn-lg btn-facebook btn-block text-uppercase" ><i className="fab fa-facebook-f mr-2"></i> Login con Facebook</button> */}
                                     <hr className="my-1" />
 
-                                    <div className="custom-control mb-2 fila-flex">
-                                        <button className="text-info btn-link">Olvidaste tu Contraseña?</button>
+                                    <div className="custom-control mb-2 mt-2 fila-flex">
+                                        <button className="text-info btn-link">¿Olvidaste tu Contraseña?</button>
                                     </div>
                                 </form>
                             </div>

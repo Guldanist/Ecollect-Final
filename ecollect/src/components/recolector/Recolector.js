@@ -180,12 +180,12 @@ export default class Recolector extends Component {
 
     if (this.state.loadCategorias && this.state.loadPublicaciones) {
       return (
-        <div className="contenedor-recolector container-fluid">
+        <div className="contenedor-recolector ">
           <div class="row justify-content-center header-recolector">
             {/* dropdownlist categorias */}
-            <div class="col-4 col-md-3 col-lg-2">
-              <select ref={this.selectorCategorias} onChange={this.ReiniciarActivePage} class=" form-control form-control-lg form-control-borderless">
-                <option value='0'>Elija una Categoria</option>
+            <div class="">
+              <select ref={this.selectorCategorias} onChange={this.ReiniciarActivePage} class=" form-control form-control-md form-control-borderless">
+                <option value='0'>Categoria</option>
                 {/* Mapeando Categorias */}
                 {
                   this.state.categorias.map(elem => {
@@ -196,16 +196,11 @@ export default class Recolector extends Component {
             </div>
             {/* Barra de busqueda */}
             <div class="col-8 col-md-7 col-lg-6">
-              <div class="card-body row no-gutters align-items-center ">
-                <div class="col-auto">
-                  <i class="fas fa-search h4 text-body mr-2"></i>
-                </div>
-                <div class="col">
-                  <input ref={this.inputBusqueda} onChange={this.ReiniciarActivePage} class="form-control form-control-lg form-control-borderless" type="search" placeholder="Busqueda" />
-                </div>
-                <div class="col-auto">
-                  <button class="btn btn-lg btn-success ml-2" type="submit" onClick={this.BuscarPublicacionFiltro}>Buscar</button>
-                </div>
+              <div class="card-body row no-gutters align-items-center ">  
+                  <i class="fas fa-search h4 text-body mr-2 mt-2"></i>
+                  <input style={{minWidth:150,width:300}} ref={this.inputBusqueda} onChange={this.ReiniciarActivePage} class="form-control form-control-md form-control-borderless" type="search" placeholder="Busqueda" />
+                  <button class="btn btn-md ml-2 mt-2 btn-publicacion" type="submit" onClick={this.BuscarPublicacionFiltro}>Buscar</button>
+                
               </div>
             </div>
           </div>
@@ -222,7 +217,7 @@ export default class Recolector extends Component {
                 return (
                   <div class="card" key={publi.publi_id}>
                     {/* <img src="https://www.sctech.edu/wp-content/plugins/ajax-search-pro/img/default.jpg" alt="" /> */}
-                    <img src={publi.t_fotos[0].fot_img} alt="" />
+                    <img className="imagen-publicacion" src={publi.t_fotos[0].fot_img} alt="" />
                     <div class="card-footer text-muted" >
                       {/* <h5 className="text-dark">Titulo de la Publicación..</h5> */}
                       <div className="footer-precio" >
@@ -230,7 +225,7 @@ export default class Recolector extends Component {
                       </div>
                       <div className="flex-card-footer">
                         <span >{this.CalcularFechaPublicacion(publi.publi_fecha)}</span>
-                        <button className="btn btn-primary" onClick={()=>{this.irAPublicacion(publi.publi_id)}}>Ver</button>
+                        <button className='btn btn-publicacion'   onClick={()=>{this.irAPublicacion(publi.publi_id)}}>Ver</button>
                       </div>
                     </div>
                   </div>
@@ -256,14 +251,14 @@ export default class Recolector extends Component {
           </div>
 
           {/* Boton flotante Agregar */}
-          <Fab color="primary" aria-label="Add" style={{position:"fixed",bottom:'50px',right:'50px',transform:'scale(1.2)'}} onClick={this.agregarPublicacion}>
+          <Fab color="primary" aria-label="Add" style={{position:"fixed",bottom:'50px',right:'50px'}} onClick={this.agregarPublicacion}>
             <AddIcon />
           </Fab>
 
         </div>
       )
     } else {
-      return (<div className="pagination-center" ><Spinner style={{marginTop:50}} animation="border" variant="secondary" /></div>)
+      return (<div className="pagination-center" ><Spinner style={{marginTop:50, color:'green' }} animation="border" variant="secondary" /></div>)
     }
 
   }
