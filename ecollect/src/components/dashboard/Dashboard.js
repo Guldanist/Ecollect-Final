@@ -18,6 +18,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import Avatar from '@material-ui/core/Avatar';
 
 import './dashboard.css';
+import { flexbox } from '@material-ui/system';
 
 
 export default class Dashboard extends Component {
@@ -79,7 +80,7 @@ export default class Dashboard extends Component {
                     <nav id="sidebar">
                         <div className="sidebar-header">
                             {/* Imagen logo Ecolect */}
-                            <img src={require('./../../assets/img/logo_negat_ecollect.png')}></img>                            
+                            <img src={require('./../../assets/img/logotipo_original.png')}></img>                            
                         </div>
                         <hr className="my-1 " style={{color:'white'}}/>
                         <div></div>
@@ -120,19 +121,14 @@ export default class Dashboard extends Component {
                     <div id="content">
 
                         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                            <div className="container-fluid">
-
-                                {/* <button  type="button" id="sidebarCollapse" onClick={this.ClickToggleSidebar} className="btn">
-                                    <i style={{border:'1px solid #A1A1A1',padding:10,borderRadius:5,color:'#A1A1A1',}} class="fas fa-align-justify"></i>                                   
-                                </button> */}
-                                {/* <Button variant="outline-secondary"> */}
+                            <div className="container-fluid" style={{display:'flex'}}>
+                                <div style={{display:'flex',justifyContent:'flex-start',width:150}}>
                                     <i onClick={this.ClickToggleSidebar} id='sidebarbutton' style={{border:'1px solid #A1A1A1',padding:10,borderRadius:5,color:'#A1A1A1',}} class="fas fa-align-justify"></i>    
-                                {/* </Button> */}
-
+                                    <img style={{height:40}} src={require('./../../assets/img/logotipo_original.png')}></img>  
+                                </div>
                                 <button className="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                    <i className="fas fa-align-justify"></i>
+                                    <i className="fas fa-align-justify"></i>                                    
                                 </button>
-
                                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                     <ul className="nav navbar-nav ml-auto">
                                         <li id="menuNavBar" className="nav-item" style={{display:'flex', alignContent:'center',alignItems:'center'}}>
@@ -140,8 +136,9 @@ export default class Dashboard extends Component {
                                                 <MailIcon />
                                             </Badge>
                                             <Avatar style={{marginRight:10,marginLeft:10,borderRadius:'50%'}} alt="" src={this.obtenerFotoUsuario()}  />
-                                            <label style={{marginRight:10,marginLeft:10,marginTop:5}}>{this.state.usuario.nombre}</label>                                            
-                                            <Link style={{marginRight:10,marginLeft:10}} onClick={this.Salir}>Salir</Link>
+                                            <label style={{marginRight:10,marginLeft:10,marginTop:5}}>{this.state.usuario.nombre}</label>
+                                            <i style={{marginLeft:10}} class="fas fa-sign-out-alt"></i>                                            
+                                            <Link style={{marginRight:10,marginLeft:5}} onClick={this.Salir}>Salir</Link>
                                             {/* Menu */}                                            
                                         </li>
                                     </ul>
