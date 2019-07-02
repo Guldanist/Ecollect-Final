@@ -315,19 +315,19 @@ export default class Reciclar extends Component {
                                     <div className="row mb-2">
                                         <div className='col-md-8'>
                                             <label htmlFor="inDescripcion" className="">Descripción</label>
-                                            <input type="text" className="form-control" placeholder="Ejem.: Envases de vidrio" id="inDescripcion"
+                                            <input style={{backgroundColor:'white',border:'1px solid #AAAAAA'}} type="text" className="form-control" placeholder="Ejem.: Envases de vidrio" id="inDescripcion"
                                                 onChange={this.onChangeDescripcion} />
                                         </div>
                                     </div>
                                     <div className="row ">
                                         <div className="col-md-4">
                                             <label htmlFor="inCantidad">Cantidad</label>
-                                            <input type="number" className="form-control" placeholder="Ejem.: 20" id="inCantidad"
+                                            <input style={{backgroundColor:'white',border:'1px solid #AAAAAA'}} type="number" className="form-control" placeholder="Ejem.: 20" id="inCantidad"
                                                 onChange={this.onChangeCant} />
                                         </div>
                                         <div className="col-md-4">
                                             <label htmlFor="inPrecioBase" className="col-form-label">Precio Base S/.</label>
-                                            <input type="number" className="form-control" placeholder="5" id="inPrecioBase"
+                                            <input style={{backgroundColor:'white',border:'1px solid #AAAAAA'}} type="number" className="form-control" placeholder="5" id="inPrecioBase"
                                                 onChange={this.onChangePrecioBase} />
                                         </div>
                                         {/* <div className="col-md-4">
