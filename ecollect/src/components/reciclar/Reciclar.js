@@ -1,16 +1,6 @@
 import React, { Component } from 'react'
-import Carrusel from './Carrusel';
+// import Carrusel from './Carrusel';
 import Mapa from '../mapa/Mapa';
-
-
-import Tab from 'react-bootstrap/Tab'
-import Nav from 'react-bootstrap/Nav';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container'
-import Snackbar from '@material-ui/core/Snackbar';
-
-
 // Material
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -19,6 +9,10 @@ import StepContent from '@material-ui/core/StepContent';
 import ButtonMat from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+
+// toast
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default class Reciclar extends Component {
     lista = ['Vigencia', 'Categoria', 'Producto', 'Ubicacion'];
@@ -37,15 +31,19 @@ export default class Reciclar extends Component {
         publi_preciobase: ''
     }
 
-
     constructor(props) {
         super(props)
         this.state = {
             nombreCategoria: '',
             open: false,
-            step: 0
+            step: 0,
+            categoria: [],
+            loadCategoria: false
         }
-
+        this.selecCategoria=React.createRef();
+    }
+    componentDidMount = async () => {
+        await this.optenerCategorias();
     }
 
     handleClick = () => {
@@ -90,8 +88,6 @@ export default class Reciclar extends Component {
         // Falta completar estos campos
         this.objReciclaje.publi_fecha = new Date();
         this.objReciclaje.usu_id = usuario.id;
-        // 
-
         var myHeaders = {
             method: 'POST',
             headers: {
@@ -100,12 +96,19 @@ export default class Reciclar extends Component {
             },
             body: JSON.stringify(this.objReciclaje)
         }
-        console.log(this.objReciclaje);
+        // console.log(this.objReciclaje);
         fetch('https://backend-ecollect.herokuapp.com/api/publicacion', myHeaders)
             .then(response => { return response.json(); })
             .then(data => {
-                // console.log(data);
-                this.handleClick();
+                if(data.message==='created'){
+                    this.mostrarTostadaExito();
+                    setTimeout(() => {
+                        // Redireccionar  a Publicaciones despues de  2 segundos
+                        this.props.history.push("/publicaciones");   
+                    }, 3000);
+                }else{
+                    this.mostrarTostadaFallida();
+                }                
             })
     }
 
@@ -123,6 +126,10 @@ export default class Reciclar extends Component {
 
     onChangePrecioBase = (e) => {
         this.objReciclaje.publi_preciobase = e.target.value;
+    }
+    onChangeCategoria=(e)=>{
+        // console.log(e.target.value);   
+        this.objReciclaje.catpro_id=e.target.value;     
     }
 
     onChangeDescripcion = (e) => {
@@ -148,6 +155,39 @@ export default class Reciclar extends Component {
         // setActiveStep(prevActiveStep => prevActiveStep - 1);
     }
 
+    optenerCategorias = () => {
+        fetch('https://backend-ecollect.herokuapp.com/api/categoria').then(response => {
+            return response.json();
+        }).then(data => {
+            this.setState({
+                categoria: data.content,
+                loadCategoria: true
+            })
+        })
+    }
+
+    mostrarTostadaExito = () => {
+        toast.success('La Publicacion de guardo correctamente!', {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: false
+        })
+    }
+
+    mostrarTostadaFallida = () => {
+        toast.error('Ocurrio un error al crear la Publicacion!', {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: false
+        })
+    }
+
     render() {
         const estilo = {
             card: {
@@ -170,334 +210,214 @@ export default class Reciclar extends Component {
 
         }
         return (
-            <React.Fragment>
-                {/* Creando Stepers */}
-                <div >
-                    <Stepper activeStep={this.state.step} orientation="vertical">
-                        {/* {this.lista.map((label, index) => ( */}
-                        {/* step 1 */}
-                        <Step >
-                            <StepLabel >{this.lista[0]}</StepLabel>
-                            <StepContent>
-                                <div className="col-md-6 mb-5">
-                                    <label htmlFor="inTiempoVigencia" className="col-form-label">Tiempo Vigencia</label>
-                                    <select className="custom-select" id="inTiempoVigencia" onChange={this.onChangeTiempoOferta} required >
-                                        <option >Selecciona aqui</option>
-                                        <option value="7">1 semana</option>
-                                        <option value="14">2 semanas</option>
-                                        <option value="30">1 mes</option>
-                                        <option value="60">2 meses</option>
-                                    </select>
-                                </div>
-                                {/* <Typography>Contenido  aqui</Typography> */}
+            <React.Fragment >
+                <ToastContainer
+                        position="top-center"
+                        autoClose={3000}
+                        hideProgressBar
+                        newestOnTop
+                        closeOnClick
+                        rtl={false}
+                        pauseOnVisibilityChange
+                        draggable={false}
+                        pauseOnHover={false}
+                    />
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <div style={{ width: '70%', height: 50, backgroundColor: '#00B96E', display: 'flex' ,marginBottom:10}}>
+                        <h3 style={{ marginLeft: 10, color: 'white', alignSelf: 'center', fontWeight: '300' }}>Nueva Publicación</h3>
+                    </div>
+                    {/* Creando Stepers */}
+                    <div style={{ width: '60rem' }}>
+                        <Stepper activeStep={this.state.step} orientation="vertical">
+                            {/* {this.lista.map((label, index) => ( */}
+                            {/* step 1 */}
+                            <Step >
+                                <StepLabel >{this.lista[0]}</StepLabel>
+                                <StepContent>
+                                    <div className="col-md-6 mb-5">
+                                        <label htmlFor="inTiempoVigencia" className="col-form-label">Tiempo Vigencia</label>
+                                        <select className="custom-select" id="inTiempoVigencia" onChange={this.onChangeTiempoOferta} required >
+                                            <option >Selecciona aqui</option>
+                                            <option value="7">1 semana</option>
+                                            <option value="14">2 semanas</option>
+                                            <option value="30">1 mes</option>
+                                            <option value="60">2 meses</option>
+                                        </select>
+                                    </div>
+                                    {/* <Typography>Contenido  aqui</Typography> */}
 
-                                {/* Botones */}
-                                <div >
-                                    <div>
-                                        <ButtonMat
-                                            disabled={this.state.step === 0}
-                                            onClick={this.handleBack}
-                                        >
-                                            Atras
+                                    {/* Botones */}
+                                    <div >
+                                        <div>
+                                            <ButtonMat
+                                                disabled={this.state.step === 0}
+                                                onClick={this.handleBack}
+                                            >
+                                                Atras
                                             </ButtonMat>
 
-                                        <ButtonMat
-                                            variant="contained"
-                                            color="primary"
-                                            onClick={this.handleNext}
-                                        >
-                                            {this.state.step === this.lista.length - 1 ? 'Finalizar' : 'Siguiente'}
-                                        </ButtonMat>
+                                            <ButtonMat
+                                                variant="contained"
+                                                color="primary"
+                                                onClick={this.handleNext}
+                                            >
+                                                {this.state.step === this.lista.length - 1 ? 'Finalizar' : 'Siguiente'}
+                                            </ButtonMat>
+                                        </div>
                                     </div>
-                                </div>
-                            </StepContent>
-                        </Step>
-                        {/* step 2 */}
-                        <Step >
-                            <StepLabel>{this.lista[1]}</StepLabel>
-                            <StepContent>
-                                <div className='mb-5'>
-                                    <Carrusel getNombreCategoria={this.getNombreCategoria} />
-                                </div>
-                                {/* <Typography>Contenido  aqui</Typography> */}
-                                <div >
-                                    <div>
-                                        <ButtonMat
-                                            disabled={this.state.step === 0}
-                                            onClick={this.handleBack}
-                                        >
-                                            Atras
+                                </StepContent>
+                            </Step>
+                            {/* step 2 */}
+                            <Step >
+                                <StepLabel>{this.lista[1]}</StepLabel>
+                                <StepContent>
+                                    <div className='mb-5'>
+                                        {
+                                            this.state.loadCategoria ? (
+                                                <div>
+                                                    <select ref={this.selecCategoria} class="custom-select" onChange={this.onChangeCategoria}>
+                                                        <option value='0'>Categoria</option>
+                                                        {/* Mapeando Categorias */}
+                                                        {
+                                                            this.state.categoria.map(elem => {
+                                                                return (<option value={elem.catprod_id}>{elem.catprod_nombre}</option>)
+                                                            })
+                                                        }
+                                                    </select>
+                                                </div>) : (<>Cargando</>)
+                                        }
+                                    </div>
+                                    {/* <Typography>Contenido  aqui</Typography> */}
+                                    <div >
+                                        <div>
+                                            <ButtonMat
+                                                disabled={this.state.step === 0}
+                                                onClick={this.handleBack}
+                                            >
+                                                Atras
                                             </ButtonMat>
 
-                                        <ButtonMat
-                                            variant="contained"
-                                            color="primary"
-                                            onClick={this.handleNext}
-                                        >
-                                            {this.state.step === this.lista.length - 1 ? 'Finalizar' : 'Siguiente'}
-                                        </ButtonMat>
+                                            <ButtonMat
+                                                variant="contained"
+                                                color="primary"
+                                                onClick={this.handleNext}
+                                            >
+                                                {this.state.step === this.lista.length - 1 ? 'Finalizar' : 'Siguiente'}
+                                            </ButtonMat>
+                                        </div>
                                     </div>
-                                </div>
-                            </StepContent>
-                        </Step>
-                        {/* step 3 */}
-                        <Step >
-                            <StepLabel>{this.lista[2]}</StepLabel>
-                            <StepContent>
-                                <div className="row mb-2">
-                                    <div className='col-md6'>
-                                        <label htmlFor="inDescripcion" className="col-form-label">Descripcion</label>
-                                        <input type="text" className="form-control" placeholder="Ejem.: Envases de vidrio" id="inDescripcion"
-                                            onChange={this.onChangeDescripcion} />
+                                </StepContent>
+                            </Step>
+                            {/* step 3 */}
+                            <Step >
+                                <StepLabel>{this.lista[2]}</StepLabel>
+                                <StepContent>
+                                    <div className="row mb-2">
+                                        <div className='col-md-8'>
+                                            <label htmlFor="inDescripcion" className="">Descripción</label>
+                                            <input type="text" className="form-control" placeholder="Ejem.: Envases de vidrio" id="inDescripcion"
+                                                onChange={this.onChangeDescripcion} />
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="row mb-2">
-                                    <div className="col-md-4">
-                                        <label htmlFor="inCantidad" className="col-form-label">Cantidad</label>
-                                        <input type="number" className="form-control" placeholder="Ejem.: 20" id="inCantidad"
-                                            onChange={this.onChangeCant} />
-                                    </div>
-                                    <div className="col-md-4">
-                                        <label htmlFor="inPrecioBase" className="col-form-label">Precio Base S/.</label>
-                                        <input type="number" className="form-control" placeholder="5" id="inPrecioBase"
-                                            onChange={this.onChangePrecioBase} />
-                                    </div>
-                                    <div className="col-md-4">
+                                    <div className="row ">
+                                        <div className="col-md-4">
+                                            <label htmlFor="inCantidad">Cantidad</label>
+                                            <input type="number" className="form-control" placeholder="Ejem.: 20" id="inCantidad"
+                                                onChange={this.onChangeCant} />
+                                        </div>
+                                        <div className="col-md-4">
+                                            <label htmlFor="inPrecioBase" className="col-form-label">Precio Base S/.</label>
+                                            <input type="number" className="form-control" placeholder="5" id="inPrecioBase"
+                                                onChange={this.onChangePrecioBase} />
+                                        </div>
+                                        {/* <div className="col-md-4">
                                         <label htmlFor="inDeseo" className="col-form-label">Deseo</label>
                                         <select className="custom-select">
                                             <option >Selecciona aqui</option>
                                             <option value="1">Darlo</option>
                                             <option value="2">Venderlo</option>
                                         </select>
+                                    </div> */}
                                     </div>
-                                </div>
-                                <div className='row mb-5'>
-                                    <img alt="" id="imgReciclado" style={estilo.img} />
-                                    <br />
-                                    <input type="file" accept="image/*" name="image" onChange={this.handleInputChange} />
-                                </div>
-                                {/* <Typography>Contenido  aqui</Typography> */}
-
-                                <div >
-                                    <div>
-                                        <ButtonMat
-                                            disabled={this.state.step === 0}
-                                            onClick={this.handleBack}
-                                        >
-                                            Atras
-                                            </ButtonMat>
-
-                                        <ButtonMat
-                                            variant="contained"
-                                            color="primary"
-                                            onClick={this.handleNext}
-                                        >
-                                            {this.state.step === this.lista.length - 1 ? 'Finalizar' : 'Siguiente'}
-                                        </ButtonMat>
-                                    </div>
-                                </div>
-                            </StepContent>
-                        </Step>
-                        {/* step 4 */}
-                        <Step >
-                            <StepLabel>{this.lista[3]}</StepLabel>
-                            <StepContent>
-
-                                <div className='row mb-5'>
-                                    <div className='col-md-12' style={{height: 350}}>
-                                        <Mapa enviarCoord={this.obtenerCoord} />
-                                    </div>
-                                </div>
-                                {/* <Typography>Contenido  aqui</Typography> */}
-                                <div >
-                                    <div>
-                                        <ButtonMat
-                                            disabled={this.state.step === 0}
-                                            onClick={this.handleBack}
-                                        >
-                                            Atras
-                                            </ButtonMat>
-
-                                        <ButtonMat
-                                            variant="contained"
-                                            color="primary"
-                                            onClick={this.handleNext}
-                                        >
-                                            {this.state.step === this.lista.length - 1 ? 'Finalizar' : 'Siguiente'}
-                                        </ButtonMat>
-                                    </div>
-                                </div>
-                            </StepContent>
-                        </Step>
-                        {/* // ))} */}
-                    </Stepper>
-                    {this.state.step === this.lista.length && (
-                        <div >
-                            <Paper square elevation={0}>
-                                <Typography style={{ paddingLeft: 20 }}>Ha completado todos los datos para realizar una publicacion.</Typography>
-                                <ButtonMat style={{ paddingLeft: 20, margin: 10 }} onClick={this.handleSubmit}>
-                                    Publicar
-                            </ButtonMat>
-                                <ButtonMat style={{ paddingLeft: 20, margin: 10 }} onClick={() => { this.props.history.push("/publicaciones")}}>
-                                    Cancelar
-                            </ButtonMat>
-                            </Paper>
-                        </div>
-                    )}
-                </div>
-
-                {/* stepers */}
-
-
-
-
-                <form noValidate autoComplete="off" onSubmit={this.handleSubmit}>
-
-                    <Container>
-                        <Row>
-                            <Col>
-
-                                <div className="card mb-3" style={estilo.card}>
-                                    <div className="card-header">Reciclar</div>
-                                    <div className="card-body">
-                                        <h4 className="card-title">Publica tu Reciclaje</h4>
-
-                                        <div className="row mb-3">
-                                            <div className="col-md-6">
-                                                <label htmlFor="inTiempoVigencia" className="col-form-label">Tiempo Vigencia</label>
-                                                <select className="custom-select" id="inTiempoVigencia" onChange={this.onChangeTiempoOferta} required >
-                                                    <option >Selecciona aqui</option>
-                                                    <option value="1 semana">1 semana</option>
-                                                    <option value="2 semanas">2 semanas</option>
-                                                    <option value="1 mes">1 mes</option>
-                                                    <option value="2 meses">2 meses</option>
-                                                </select>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <label htmlFor="inEstado" className="col-form-label">Estado</label>
-                                                <div className="form-check">
-                                                    <label className="form-check-label mr-5">
-                                                        <input name="optionsRadios" className="form-check-input" id="optionsRadios1" type="radio" defaultChecked value="p" 
-                                                            onChange={this.onChangeEstado}/>
-                                                        Activo
-                                                    </label>
-                                                    <label className="form-check-label">
-                                                        <input name="optionsRadios" className="form-check-input" id="optionsRadios2" type="radio" value="a"
-                                                            onChange={this.onChangeEstado} />
-                                                        No Activo
-                                                    </label>
-                                                </div>
-                                            </div>
+                                    <div className='row mb-5' >
+                                        <div className='col-md-8' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                            <img style={{ maxWidth: 300,maxHeight:300 }} alt="" id="imgReciclado" />
+                                            <br />
+                                            <input type="file" accept="image/*" name="image" capture="camera" onChange={this.handleInputChange} />
                                         </div>
-
-                                        <Tab.Container id="left-tabs-example" defaultActiveKey="first">
-                                            <Row>
-                                                <Col sm={3}>
-                                                    <Nav variant="pills" className="flex-column">
-                                                        <Nav.Item>
-                                                            <Nav.Link eventKey="first">Categoria</Nav.Link>
-                                                        </Nav.Item>
-                                                        <Nav.Item>
-                                                            <Nav.Link eventKey="second">Producto</Nav.Link>
-                                                        </Nav.Item>
-                                                    </Nav>
-                                                </Col>
-                                                <Col sm={9}>
-                                                    <Tab.Content>
-                                                        <Tab.Pane eventKey="first">
-                                                            <Carrusel getNombreCategoria={this.getNombreCategoria} />
-                                                        </Tab.Pane>
-                                                        <Tab.Pane eventKey="second">
-
-                                                            <label htmlFor="inDescripcion" className="col-form-label">Descripcion</label>
-                                                            <input type="text" className="form-control" placeholder="Ejem.: Envases de vidrio" id="inDescripcion"
-                                                                onChange={this.onChangeDescripcion} />
-
-                                                            <div className="row">
-                                                                <div className="col-md-4">
-                                                                    <label htmlFor="inCantidad" className="col-form-label">Cantidad</label>
-                                                                    <input type="number" className="form-control" placeholder="Ejem.: 20" id="inCantidad"
-                                                                        onChange={this.onChangeCant} />
-                                                                </div>
-                                                                <div className="col-md-4">
-                                                                    <label htmlFor="inPrecioBase" className="col-form-label">Precio Base S/.</label>
-                                                                    <input type="number" className="form-control" placeholder="5" id="inPrecioBase"
-                                                                        onChange={this.onChangePrecioBase} />
-                                                                </div>
-                                                                <div className="col-md-4">
-                                                                    <label htmlFor="inDeseo" className="col-form-label">Deseo</label>
-                                                                    <select className="custom-select">
-                                                                        <option >Selecciona aqui</option>
-                                                                        <option value="1">Darlo</option>
-                                                                        <option value="2">Venderlo</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <br />
-
-                                                            <img alt="" id="imgReciclado" style={estilo.img} />
-                                                            <br />
-                                                            <input type="file" accept="image/*" name="image" onChange={this.handleInputChange} />
-
-                                                        </Tab.Pane>
-                                                    </Tab.Content>
-                                                </Col>
-                                            </Row>
-                                        </Tab.Container>
-
-
-
-
                                     </div>
 
-                                    <ol className="breadcrumb">
-                                        <li className="breadcrumb-item"><a href="#categoria">Categoria</a></li>
-                                        <li className="breadcrumb-item active">{this.state.nombreCategoria}</li>
-                                    </ol>
-
-                                </div>
-
-                            </Col>
-
-                        </Row>
 
 
+                                    <div >
+                                        <div>
+                                            <ButtonMat
+                                                disabled={this.state.step === 0}
+                                                onClick={this.handleBack}
+                                            >
+                                                Atras
+                                            </ButtonMat>
 
-                        <Row>
-                            <Col style={{ height: 450 }}>
-                                <Mapa enviarCoord={this.obtenerCoord} />
-                            </Col>
-                        </Row>
+                                            <ButtonMat
+                                                variant="contained"
+                                                color="primary"
+                                                onClick={this.handleNext}
+                                            >
+                                                {this.state.step === this.lista.length - 1 ? 'Finalizar' : 'Siguiente'}
+                                            </ButtonMat>
+                                        </div>
+                                    </div>
+                                </StepContent>
+                            </Step>
+                            {/* step 4 */}
+                            <Step >
+                                <StepLabel>{this.lista[3]}</StepLabel>
+                                <StepContent>
 
+                                    <div className='row mb-5'>
+                                        <div className='col-md-12' style={{ height: 350 }}>
+                                            <Mapa enviarCoord={this.obtenerCoord} />
+                                        </div>
+                                    </div>
+                                    {/* <Typography>Contenido  aqui</Typography> */}
+                                    <div >
+                                        <div>
+                                            <ButtonMat
+                                                disabled={this.state.step === 0}
+                                                onClick={this.handleBack}
+                                            >
+                                                Atras
+                                            </ButtonMat>
 
-
-                        <Row style={{ marginTop: 25 }}>
-                            <Col>
-                                <button type="submit" className="btn btn-primary">Publicar</button>
-                                <button className="btn btn-danger" type="button">Cancelar</button>
-                            </Col>
-                        </Row>
-                    </Container>
-
-
-
-                </form>
-
-                <Snackbar
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'left',
-                    }}
-                    open={this.state.open}
-                    autoHideDuration={6000}
-                    onClose={this.handleClose}
-                    ContentProps={{
-                        'aria-describedby': 'message-id',
-                    }}
-                    message={<span id="message-id">Se registró su Publicación exitosamente.</span>}
-
-                />
-
+                                            <ButtonMat
+                                                variant="contained"
+                                                color="primary"
+                                                onClick={this.handleNext}
+                                            >
+                                                {this.state.step === this.lista.length - 1 ? 'Finalizar' : 'Siguiente'}
+                                            </ButtonMat>
+                                        </div>
+                                    </div>
+                                </StepContent>
+                            </Step>
+                            {/* // ))} */}
+                        </Stepper>
+                        {this.state.step === this.lista.length && (
+                            <div >
+                                <Paper square elevation={0}>
+                                    <Typography style={{ paddingLeft: 20 }}>Ha completado todos los datos para realizar una publicacion.</Typography>
+                                    <ButtonMat style={{ paddingLeft: 20, margin: 10 }} onClick={this.handleSubmit}>
+                                        Publicar
+                            </ButtonMat>
+                                    <ButtonMat style={{ paddingLeft: 20, margin: 10 }} onClick={() => { this.props.history.push("/publicaciones") }}>
+                                        Cancelar
+                            </ButtonMat>
+                                </Paper>
+                            </div>
+                        )}
+                    </div>
+                </div>
+                {/* stepers */}
             </React.Fragment>
 
         )

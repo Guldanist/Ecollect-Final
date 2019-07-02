@@ -28,6 +28,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+// toast
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // Css
 var moment = require('moment')
 
@@ -218,11 +221,27 @@ export class Publicacion extends Component {
                 if (data.message === "created") {
                     this.BuscarOfertasByIdPublicacion(this.props.match.params.publi_id);
                     this.socket.emit('agregaroferta', { mensaje: 'se ha agregado una oferta' })
-                    ToastsStore.success("Oferta creada con Exito !!!.")
+                    toast.success('Se Agregó la oferta a la Publicación.', {
+                        position: "top-center",
+                        autoClose: 2000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: false,
+                        draggable: false
+                    })
+                    // ToastsStore.success("Oferta creada con Exito !!!.")
                 }
                 else {
                     console.log('no se creo nada');
-                    ToastsStore.error("No se creo la Oferta. Error !!!.")
+                    toast.error('Ocurrio un error, no se pudo crear la oferta.', {
+                        position: "top-center",
+                        autoClose: 2000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: false,
+                        draggable: false
+                    })
+                    // ToastsStore.error("No se creo la Oferta. Error !!!.")
                 }
             }).catch((error) => {
                 ToastsStore.error("No se creo la Oferta. Error !!!.")
@@ -273,13 +292,30 @@ export class Publicacion extends Component {
                     // console.log(data.message);
                 });
                 this.BuscarPublicacionById(this.props.match.params.publi_id)
-                ToastsStore.success("Cita creada con Exito !!!.")
+                    toast.success('Se envió el aviso al Ofertante.', {
+                        position: "top-center",
+                        autoClose: 2000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: false,
+                        draggable: false
+                    })
+                // ToastsStore.success("Cita creada con Exito !!!.")
                 setTimeout(() => {
-                    this.props.history.push("/misOfertas");        
-                }, 2000);
+                    this.props.history.push("/misOfertas");
+                }, 3000);
 
             } else {
-                ToastsStore.warning("No se creo la Cita !!!.")
+                // ToastsStore.warning("No se creo la Cita !!!.")
+                toast.error('Ocurrio un error al enviar el aviso al ofertante', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: false
+                })
+
                 // this.setState({ openModalAceptOferta: false });
             }
             // Si todo es correcto Cerrar Modal            
@@ -405,9 +441,11 @@ export class Publicacion extends Component {
         //         color = '#34495E'
         //         break;
         // }
-        return "#"+((1<<24)*Math.random()|0).toString(16);
+        return "#" + ((1 << 24) * Math.random() | 0).toString(16);
         // return color;
     }
+
+
 
     render() {
         if (this.state.loadPublicacion) {
@@ -415,6 +453,17 @@ export class Publicacion extends Component {
             // this.direccionFromCoordinate(); 
             return (
                 <React.Fragment>
+                    <ToastContainer
+                        position="top-center"
+                        autoClose={3000}
+                        hideProgressBar
+                        newestOnTop
+                        closeOnClick
+                        rtl={false}
+                        pauseOnVisibilityChange
+                        draggable={false}
+                        pauseOnHover={false}
+                    />
                     {/* Card */}
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start' }}>
 
@@ -545,7 +594,7 @@ export class Publicacion extends Component {
 
 
 
-                    {/* Modal Para el Mapa */}  
+                    {/* Modal Para el Mapa */}
                     <Modal
                         show={this.state.showModalMapa}
                         onHide={() => { this.setState({ showModalMapa: false }) }}
@@ -558,16 +607,16 @@ export class Publicacion extends Component {
                             </Modal.Title>
                         </Modal.Header>
                         <Modal.Body style={{ height: '30em' }}>
-                            <div style={{position:'relative', width:'100%',height:'100%'}}>
-                            <Map google={this.props.google}
-                                initialCenter={{ lat: +this.objPublicacion.publi_lat, lng: +this.objPublicacion.publi_lng }}
-                                zoom={17}
-                            >
-                                <Marker
-                                    title={'Publicacion.'}
-                                    name={this.state.direccionPublicacion}
-                                    position={{ lat: +this.objPublicacion.publi_lat, lng: +this.objPublicacion.publi_lng }} />
-                            </Map>
+                            <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                                <Map google={this.props.google}
+                                    initialCenter={{ lat: +this.objPublicacion.publi_lat, lng: +this.objPublicacion.publi_lng }}
+                                    zoom={17}
+                                >
+                                    <Marker
+                                        title={'Publicacion.'}
+                                        name={this.state.direccionPublicacion}
+                                        position={{ lat: +this.objPublicacion.publi_lat, lng: +this.objPublicacion.publi_lng }} />
+                                </Map>
                             </div>
                         </Modal.Body>
                     </Modal>
@@ -632,8 +681,8 @@ export class Publicacion extends Component {
                     </Dialog>
 
 
-                            {/* Toast */}
-                    <ToastsContainer  position={ToastsContainerPosition.TOP_CENTER} timer={5000} store={ToastsStore} />
+                    {/* Toast */}
+                    <ToastsContainer position={ToastsContainerPosition.TOP_CENTER} timer={5000} store={ToastsStore} />
 
                 </React.Fragment >
 
