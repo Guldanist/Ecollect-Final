@@ -47,9 +47,8 @@ export default class AppBar extends Component {
                     </nav>
                     <div className="ecollect text-center">
                         <h1 className="display-3 font-white font-bold font-title">Recicla con Ecollect</h1>
-                        <p className="lead font-text font-white fs-20">This is a simple hero unit, a simple jumbotron-style <br />component
-                          for calling extra attention to
-        featured content or information.</p>
+                        <p className="lead font-text font-white fs-20">Ayudamos a limpiar el planeta <br />
+                        y a que tú mismo ayudes de distintas formas.</p>
                         <hr className="my-4" />
                         <p className="lead">
                             <div className="busqueda">

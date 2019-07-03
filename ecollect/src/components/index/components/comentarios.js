@@ -9,10 +9,8 @@ export default class Comentarios extends Component {
                     <div class="row rcomentarios">
                         <div class="col-md-4">
                         <div class="comentsall">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Iusto explicabo deserunt animi cumque enim doloremque debitis
-                        eveniet aperiam eaque atque, hic, cupiditate reiciendis quidem
-                        expedita pariatur blanditiis id voluptas numquam.</p>
+                        <p>Esta aplicación me ayudo a ver que varias cosas que botaba al tacho y
+                            podian reciclarse y sin embargo yo no lo hacia porque no sabia donde llevar estos objetos.</p>
                         
                         </div>
                         <div class="usuarios">
@@ -25,10 +23,9 @@ export default class Comentarios extends Component {
                         </div>
                         <div class="col-md-4">
                         <div class="comentsall">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Iusto explicabo deserunt animi cumque enim doloremque debitis
-                        eveniet aperiam eaque atque, hic, cupiditate reiciendis quidem
-                        expedita pariatur blanditiis id voluptas numquam.</p>
+                        <p>Con esta aplicación se me ha hecho mucho mas facil hacer mis recorridos por la ciudad recolectando
+                            cosas reciclables ya que antes solia andar sin rumbo hasta encontrar a alguien que quiera darme
+                            sus objetos reciclables.</p>
                         </div>
                         <div class="usuarios">
                         <div class="testimonial2">
@@ -40,10 +37,8 @@ export default class Comentarios extends Component {
                         </div>
                         <div class="col-md-4">
                         <div class="comentsall">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Iusto explicabo deserunt animi cumque enim doloremque debitis
-                        eveniet aperiam eaque atque, hic, cupiditate reiciendis quidem
-                        expedita pariatur blanditiis id voluptas numquam.</p>
+                        <p>De haber sabido que podía ganar dinero reciclando de una manera tan fácil hubiera empezado mucho antes,
+                            ya que consumo bastantes productos cuyos envases son reciclables.</p>
                         
                         </div>
                         <div class="usuarios">

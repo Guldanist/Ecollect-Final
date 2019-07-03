@@ -6,7 +6,7 @@ export default class Carousel extends Component {
         return (
             <React.Fragment>
                 <div class="impacto">
-                    <h2 class="text-center font-dark f-weight font-sub">Nuestra aplicación tiene un gran impacto</h2>
+                    <h2 class="text-center font-dark f-weight font-sub">Queremos tener un gran impacto en la población</h2>
                     <div id="carouselExampleIndicators" class="carousel slide c1-contenido " data-ride="carousel">
                         <ol class="carousel-indicators">
                             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -18,12 +18,17 @@ export default class Carousel extends Component {
                                 <div class="container c1-cont ">
                                     <div class=" row ">
                                         <div class=" col-md-6 justify-content-center ">
-                                            <div class="carousel-img"></div>
+                                            <div id="carruselImg1" class="carousel-img"></div>
                                         </div>
-                                        <div class=" col-md-6 justify-content-center ">
+                                        <div class=" col-md-6 justify-content-center text-justify">
                                             {/* CONTENIDO 1 */}
-                                            <h1>Qué es Ecolet?</h1>
-                                            <p>Lorem ....</p>
+                                            <br />
+                                            <h1>¿Qué es Ecollect?</h1>
+                                            <br />
+                                            <p>Es una aplicacion que facilita la recogida de productos reciclables de diferentes
+                                                hogares, ademas de dar un intercambio monetario para las personas que quieran
+                                                reciclar en sus hogares.
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -32,11 +37,16 @@ export default class Carousel extends Component {
                                 <div class="container c1-cont">
                                     <div class="row ">
                                         <div class=" col-md-6 justify-content-center ">
-                                            <div className="carousel-img"></div>
+                                            <div id="carruselImg2" className="carousel-img"></div>
                                         </div>
-                                        <div class=" col-md-6 justify-content-center ">
+                                        <div class=" col-md-6 justify-content-center text-justify">
                                             {/* CONTENIDO 2 */}
-
+                                            <br />
+                                            <h1>¿Por qué elegirnos?</h1>
+                                            <br />
+                                            <p>Porque te ofrecemos un servicio de calidad con el cual tú podras ayudar al planeta mediante el reciclaje y ademas
+                                                facilitamos la labor de los que recolectan este tipo de residuos.
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -46,11 +56,17 @@ export default class Carousel extends Component {
 
                                     <div class="row ">
                                         <div class=" col-md-6 justify-content-center ">
-                                            <div className="carousel-img"></div>
+                                            <div id="carruselImg3" className="carousel-img"></div>
                                         </div>
-                                        <div class=" col-md-6 justify-content-center ">
+                                        <div class=" col-md-6 justify-content-center text-justify">
                                             {/* CONTENIDO 3 */}
-
+                                            <br />
+                                            <h1>¿Qué gano yo usando ecollect?</h1>
+                                            <br />
+                                            <p>La oportunidad de ganar dinero al reciclar y ayudar al planeta, ademas de ofrecerte ser
+                                                parte de los muchos recolectores que reunen este tipo de residuos para su posterior
+                                                entrega y tratamiento para reutilizarse.
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
