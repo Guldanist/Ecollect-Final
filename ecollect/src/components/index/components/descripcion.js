@@ -10,9 +10,9 @@ export default class Descripcion extends Component {
                         <div class="col-md-6 align-middle">
                             <br />
                             <br />
-                            <h4 class="font-text font-green font-bold">Limpia tu hogar</h4>
+                            <h2 class="font-sub font-green f-weight">Limpia tu hogar</h2>
                             <br />
-                            <p>Reune varios residuos reciclables en tu vida cotidiana como papel, plastico, etc,
+                            <p style={{padding:20,color:'#1C1C1C'}}>Reune varios residuos reciclables en tu vida cotidiana como papel, plastico, etc,
                                 vendelas o donalas a algun recolector, manten tu hogar limpio y ayuda al planeta.</p>
                         </div>
                         <div class="col-md-6">
@@ -26,9 +26,9 @@ export default class Descripcion extends Component {
                         <div class="col-md-6 align-middle">
                             <br />
                             <br />
-                            <h4 class="font-text font-green font-bold">Desecha residuos de la manera correcta</h4>
+                            <h3 class="font-sub font-green f-weight">Desecha residuos de la manera correcta</h3>
                             <br />
-                            <p>Tenemos un amplio catálogo de categorías para que una persona pueda reciclar distintos objetos
+                            <p style={{padding:20,color:'#1C1C1C'}}>Tenemos un amplio catálogo de categorías para que una persona pueda reciclar distintos objetos
                                 , desde papel y botellas hasta electrodomésticos.
                             </p>
                         </div>
