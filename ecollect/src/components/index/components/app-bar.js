@@ -7,6 +7,8 @@ export default class AppBar extends Component {
         super(props);
     }
 
+   
+
     render() {
         return (
             <React.Fragment>
@@ -77,6 +79,11 @@ export default class AppBar extends Component {
                                 </div>
                             </div>
                         </p>
+                        <div text-center style={{marginTop:'150px'}}>
+                            {/* <div className='btn' style={{padding:'1px',backgroundColor:'white',borderRadius:20}}> */}
+                                <Link className='btn  my-2 my-sm-0 btngetstarted' Component={Link} to={'/dashboard'}>Empezar</Link>                            
+                            {/* </div>                             */}
+                        </div>
                     </div>
                 </div>
             </React.Fragment>

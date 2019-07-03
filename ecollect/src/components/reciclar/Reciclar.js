@@ -104,7 +104,7 @@ export default class Reciclar extends Component {
                     this.mostrarTostadaExito();
                     setTimeout(() => {
                         // Redireccionar  a Publicaciones despues de  2 segundos
-                        this.props.history.push("/publicaciones");
+                        this.props.history.push("/dashboard");
                     }, 3000);
                 } else {
                     this.mostrarTostadaFallida();
@@ -260,6 +260,7 @@ export default class Reciclar extends Component {
                                                 variant="contained"
                                                 color="primary"
                                                 onClick={this.handleNext}
+                                                className='btn-publicacion'
                                             >
                                                 {this.state.step === this.lista.length - 1 ? 'Finalizar' : 'Siguiente'}
                                             </ButtonMat>
@@ -301,6 +302,7 @@ export default class Reciclar extends Component {
                                                 variant="contained"
                                                 color="primary"
                                                 onClick={this.handleNext}
+                                                className='btn-publicacion'
                                             >
                                                 {this.state.step === this.lista.length - 1 ? 'Finalizar' : 'Siguiente'}
                                             </ButtonMat>
@@ -343,7 +345,7 @@ export default class Reciclar extends Component {
                                         <div className='col-md-8' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                             <img style={{ maxWidth: 300, maxHeight: 300 }} alt="" id="imgReciclado" />
                                             <br />
-                                            <label htmlFor="miImagen" className="btn btn-block btn-primary">Haga click para insertar foto de su producto</label>
+                                            <label htmlFor="miImagen" className="btn btn-block btn-publicacion-secondary">Haga click para insertar foto de su producto</label>
                                             <input id="miImagen" type="file" accept="image/*" name="image" style={{
                                                 width: "0.1px",
                                                 height: "0.1px",
@@ -369,6 +371,7 @@ export default class Reciclar extends Component {
                                                 variant="contained"
                                                 color="primary"
                                                 onClick={this.handleNext}
+                                                className='btn-publicacion'
                                             >
                                                 {this.state.step === this.lista.length - 1 ? 'Finalizar' : 'Siguiente'}
                                             </ButtonMat>
@@ -400,6 +403,7 @@ export default class Reciclar extends Component {
                                                 variant="contained"
                                                 color="primary"
                                                 onClick={this.handleNext}
+                                                className='btn-publicacion'
                                             >
                                                 {this.state.step === this.lista.length - 1 ? 'Finalizar' : 'Siguiente'}
                                             </ButtonMat>
@@ -416,7 +420,7 @@ export default class Reciclar extends Component {
                                     <ButtonMat style={{ paddingLeft: 20, margin: 10 }} onClick={this.handleSubmit}>
                                         Publicar
                             </ButtonMat>
-                                    <ButtonMat style={{ paddingLeft: 20, margin: 10 }} onClick={() => { this.props.history.push("/publicaciones") }}>
+                                    <ButtonMat style={{ paddingLeft: 20, margin: 10 }} onClick={() => { this.props.history.push("/dashboard") }}>
                                         Cancelar
                             </ButtonMat>
                                 </Paper>

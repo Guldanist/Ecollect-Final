@@ -144,25 +144,33 @@ export class Publicacion extends Component {
     VerificarPublicacionPropia = () => {
         // Hasta este punto se supon que ya cargo los datos de la publiacion
         let usuario = JSON.parse(localStorage.getItem('usuario-ecollect'));
-
-        if (this.objPublicacion.t_usuario.usu_id == usuario.id) {
-            this.setState({
-                displayBtnOfertar: 'none',
-            });
-        } else {
-            // console.log('usuario que visualiza la publicacion');
+        if(usuario){
+            if (this.objPublicacion.t_usuario.usu_id == usuario.id) {
+                this.setState({
+                    displayBtnOfertar: 'none',
+                });
+            } else {
+                // console.log('usuario que visualiza la publicacion');
+                this.setState({
+                    displayBtnAnularPublicacion: 'none',
+                    displayBtnAceptarOferta: 'none',
+                });
+            }
+            if (this.objPublicacion.publi_estado === 'e') {
+                this.setState({
+                    displayBtnOfertar: 'none',
+                    displayBtnAnularPublicacion: 'none',
+                    displayBtnAceptarOferta: 'none',
+                });
+            }
+        }else{
+            // Si no existe el usuario Se deshabilita Todos los Controles
             this.setState({
                 displayBtnAnularPublicacion: 'none',
                 displayBtnAceptarOferta: 'none',
-            });
-        }
-        if (this.objPublicacion.publi_estado === 'e') {
-            this.setState({
                 displayBtnOfertar: 'none',
-                displayBtnAnularPublicacion: 'none',
-                displayBtnAceptarOferta: 'none',
             });
-        }
+        }        
     }
 
     // Mostrar Fecha
@@ -302,7 +310,7 @@ export class Publicacion extends Component {
                     })
                 // ToastsStore.success("Cita creada con Exito !!!.")
                 setTimeout(() => {
-                    this.props.history.push("/misOfertas");
+                    this.props.history.push("/dashboard/misOfertas");
                 }, 3000);
 
             } else {
@@ -320,8 +328,6 @@ export class Publicacion extends Component {
             }
             // Si todo es correcto Cerrar Modal            
             this.setState({ openModalAceptOferta: false });
-            //Ir a Mis Ofertas
-            // this.props.history.push("/")
 
         });
     }
@@ -469,7 +475,7 @@ export class Publicacion extends Component {
 
                         <Card style={{ width: '60rem' }}>
                             <Card.Header style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                                <label style={{ fontWeight: 'bold', marginTop: 5 }}><Button style={{ marginRight: 10 }} onClick={() => { this.props.history.push("/publicaciones") }} variant="outline-info"><i class="fas fa-chevron-left"></i></Button> Publicado por : </label>
+                                <label style={{ fontWeight: 'bold', marginTop: 5 }}><Button style={{ marginRight: 10 }} onClick={() => { this.props.history.push("/dashboard") }} variant="outline-info"><i class="fas fa-chevron-left"></i></Button> Publicado por : </label>
                                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                                     <Avatar style={{ marginLeft: 10, marginRight: 5, backgroundColor: this.colorAleatorio() }}>{this.objPublicacion.t_usuario.usu_nombre.charAt(0).toUpperCase()}</Avatar>
                                     <label style={{ marginTop: 5 }}>{this.objPublicacion.t_usuario.usu_nombre}</label>

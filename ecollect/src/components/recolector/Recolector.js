@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-
+import {BrowserRouter,Switch,Route } from 'react-router-dom';
 // Material UI
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -164,11 +164,10 @@ export default class Recolector extends Component {
 
   agregarPublicacion=()=>{
     console.log('Abrir formulario Crear Publicacion');
-    this.props.history.push("/reciclar")    
+    this.props.history.push(`${this.props.match.url}/reciclar`)    
   }
   irAPublicacion=(idpublicacion)=>{
-    // console.log("idpublicacion "+idpublicacion);
-    this.props.history.push(`/Publicacion/${idpublicacion}`);
+    this.props.history.replace(`${this.props.match.url}/Publicacion/${idpublicacion}`);
   }
   ReiniciarActivePage=(event)=>{
     this.cambioDatos=true;    
