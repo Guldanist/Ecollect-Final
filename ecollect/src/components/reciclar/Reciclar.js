@@ -40,7 +40,7 @@ export default class Reciclar extends Component {
             categoria: [],
             loadCategoria: false
         }
-        this.selecCategoria=React.createRef();
+        this.selecCategoria = React.createRef();
     }
     componentDidMount = async () => {
         await this.optenerCategorias();
@@ -100,15 +100,15 @@ export default class Reciclar extends Component {
         fetch('https://backend-ecollect.herokuapp.com/api/publicacion', myHeaders)
             .then(response => { return response.json(); })
             .then(data => {
-                if(data.message==='created'){
+                if (data.message === 'created') {
                     this.mostrarTostadaExito();
                     setTimeout(() => {
                         // Redireccionar  a Publicaciones despues de  2 segundos
-                        this.props.history.push("/publicaciones");   
+                        this.props.history.push("/publicaciones");
                     }, 3000);
-                }else{
+                } else {
                     this.mostrarTostadaFallida();
-                }                
+                }
             })
     }
 
@@ -127,9 +127,9 @@ export default class Reciclar extends Component {
     onChangePrecioBase = (e) => {
         this.objReciclaje.publi_preciobase = e.target.value;
     }
-    onChangeCategoria=(e)=>{
+    onChangeCategoria = (e) => {
         // console.log(e.target.value);   
-        this.objReciclaje.catpro_id=e.target.value;     
+        this.objReciclaje.catpro_id = e.target.value;
     }
 
     onChangeDescripcion = (e) => {
@@ -212,18 +212,18 @@ export default class Reciclar extends Component {
         return (
             <React.Fragment >
                 <ToastContainer
-                        position="top-center"
-                        autoClose={3000}
-                        hideProgressBar
-                        newestOnTop
-                        closeOnClick
-                        rtl={false}
-                        pauseOnVisibilityChange
-                        draggable={false}
-                        pauseOnHover={false}
-                    />
+                    position="top-center"
+                    autoClose={3000}
+                    hideProgressBar
+                    newestOnTop
+                    closeOnClick
+                    rtl={false}
+                    pauseOnVisibilityChange
+                    draggable={false}
+                    pauseOnHover={false}
+                />
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <div style={{ width: '70%', height: 50, backgroundColor: '#00B96E', display: 'flex' ,marginBottom:10}}>
+                    <div style={{ width: '70%', height: 50, backgroundColor: '#00B96E', display: 'flex', marginBottom: 10 }}>
                         <h3 style={{ marginLeft: 10, color: 'white', alignSelf: 'center', fontWeight: '300' }}>Nueva Publicación</h3>
                     </div>
                     {/* Creando Stepers */}
@@ -315,19 +315,19 @@ export default class Reciclar extends Component {
                                     <div className="row mb-2">
                                         <div className='col-md-8'>
                                             <label htmlFor="inDescripcion" className="">Descripción</label>
-                                            <input style={{backgroundColor:'white',border:'1px solid #AAAAAA'}} type="text" className="form-control" placeholder="Ejem.: Envases de vidrio" id="inDescripcion"
+                                            <input style={{ backgroundColor: 'white', border: '1px solid #AAAAAA' }} type="text" className="form-control" placeholder="Ejem.: Envases de vidrio" id="inDescripcion"
                                                 onChange={this.onChangeDescripcion} />
                                         </div>
                                     </div>
                                     <div className="row ">
                                         <div className="col-md-4">
                                             <label htmlFor="inCantidad">Cantidad</label>
-                                            <input style={{backgroundColor:'white',border:'1px solid #AAAAAA'}} type="number" className="form-control" placeholder="Ejem.: 20" id="inCantidad"
+                                            <input style={{ backgroundColor: 'white', border: '1px solid #AAAAAA' }} type="number" className="form-control" placeholder="Ejem.: 20" id="inCantidad"
                                                 onChange={this.onChangeCant} />
                                         </div>
                                         <div className="col-md-4">
                                             <label htmlFor="inPrecioBase" className="col-form-label">Precio Base S/.</label>
-                                            <input style={{backgroundColor:'white',border:'1px solid #AAAAAA'}} type="number" className="form-control" placeholder="5" id="inPrecioBase"
+                                            <input style={{ backgroundColor: 'white', border: '1px solid #AAAAAA' }} type="number" className="form-control" placeholder="5" id="inPrecioBase"
                                                 onChange={this.onChangePrecioBase} />
                                         </div>
                                         {/* <div className="col-md-4">
@@ -341,9 +341,16 @@ export default class Reciclar extends Component {
                                     </div>
                                     <div className='row mb-5' >
                                         <div className='col-md-8' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                            <img style={{ maxWidth: 300,maxHeight:300 }} alt="" id="imgReciclado" />
+                                            <img style={{ maxWidth: 300, maxHeight: 300 }} alt="" id="imgReciclado" />
                                             <br />
-                                            <input type="file" accept="image/*" name="image" capture="camera" onChange={this.handleInputChange} />
+                                            <label htmlFor="miImagen" className="btn btn-block btn-primary">Haga click para insertar foto de su producto</label>
+                                            <input id="miImagen" type="file" accept="image/*" name="image" style={{
+                                                width: "0.1px",
+                                                height: "0.1px",
+                                                opacity: "0",
+                                                overflow: "hidden",
+                                                position: "absolute",
+                                                zIndex: "-1",}} capture="camera" onChange={this.handleInputChange} />
                                         </div>
                                     </div>
 
