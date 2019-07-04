@@ -8,18 +8,11 @@ export default class MisAnuncios extends Component {
     render() {
         return (
             <React.Fragment>
-                <div>
-                    Holy, I'm mis Anuncios.
-
-                </div>
-
-
-
                 <ul className="nav nav-tabs">
 
                     <form className="form-inline my-2 my-lg-0">
                         <input className="form-control mr-sm-2" type="text" placeholder="Search" />
-                        <button className="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                        <button className="btn btn-secondary my-2 my-sm-0" type="submit">Buscar</button>
                     </form>
                     <li className="nav-item">
                         <a className="nav-link active" data-toggle="tab" href="#todos">Todos</a>

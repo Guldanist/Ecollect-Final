@@ -19,13 +19,13 @@ export default class Todos extends Component {
         // console.log(usuLocalStorage.id);
         if (usuLocalStorage != null){
             usuLocalStorage = JSON.parse(usuLocalStorage);
-            console.log(usuLocalStorage);
-            console.log(usuLocalStorage.id);
+            //console.log(usuLocalStorage);
+            //console.log(usuLocalStorage.id);
 
-            fetch(`https://backend-ecollect.herokuapp.com/api/publicacion/buscarByIdUsuario/${usuLocalStorage.id}/t`).then((response) => {
-                return response.json();
-            }).then((data) => {
-                console.log(data.content);
+            fetch(`https://backend-ecollect.herokuapp.com/api/publicacion/buscarByIdUsuario/${usuLocalStorage.id}/t`)
+            .then((response) => { return response.json(); })
+            .then((data) => {
+                //console.log(data.content);
                 this.setState({
                     publicaciones: data.content,
                     cargado: true,
@@ -41,7 +41,7 @@ export default class Todos extends Component {
     obtenerUsuario = () => {
         let usuLocalStorage = localStorage.getItem('usuario-ecollect')
         if (usuLocalStorage) {
-            console.log(usuLocalStorage);
+            //console.log(usuLocalStorage);
 
             
             return usuLocalStorage
@@ -55,17 +55,12 @@ export default class Todos extends Component {
     render() {
 
         let {cargado,publicaciones} = this.state;
-        console.log(cargado);
-        console.log(publicaciones);
+        //console.log(cargado);
+        //console.log(publicaciones);
         
         if(cargado){
             return (
                 <React.Fragment>
-                    <div>
-                        Holy, I'm soy Todos los anuncios.
-                    </div>
-    
-    
                     <div className="jumbotron">
     
                         <h1 className="display-3">Lista de Anuncios</h1>

@@ -69,10 +69,6 @@ export default class Anuncios extends Component {
         return (
 
             <React.Fragment>
-                <div>
-                    Holy, soy el anuncio.
-                </div>
-
                 <div className="row">
                     {/* col-lg-3 */}
                     {/* col-xs-12 col-sm-3 col-sm-push-9 */}
@@ -97,11 +93,10 @@ export default class Anuncios extends Component {
                             {/* Donec id elit non mi porta. */}
                         </a>
                         {/* style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);" */}
-                        <div className="btn-group" role="group" aria-label="Button group with nested dropdown">
-                            {/* Delete Post */}
+                        {/* <div className="btn-group" role="group" aria-label="Button group with nested dropdown">
                             <button type="button" onClick={this.handleClickDelete} class="btn btn-outline-primary">Executed</button>
 
-                            {/* Iplementando el Button */}
+
                             <button type="button" onClick={this.handleClick} class="btn btn-outline-primary">Marcar como Ejecutado</button>
 
                             <button type="button" className="btn btn-info">Setting</button>
@@ -113,7 +108,7 @@ export default class Anuncios extends Component {
                                 </div>
                             </div>
 
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </React.Fragment>
