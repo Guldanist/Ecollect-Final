@@ -81,9 +81,7 @@ export default class MisOfertas extends Component {
                                                     (<>Publicado <i class="fas fa-check-double"></i></>):(<>Finalizada<i class="fas fa-check-circle"></i></>)}</Form.Label>                                                    
                                                     <Form.Label ><Form.Label style={{fontWeight:'bold',marginRight:10}}> Teléfono: </Form.Label> {oferta.usu_telefono} </Form.Label>                                                    
                                                 </Col>
-                                            </Row>
-                                            <br/>
-                                            <br/>
+                                            </Row>                                      
                                         </Col>
                                         <Col sm={3}>
                                             <Card.Title>Oferta</Card.Title>

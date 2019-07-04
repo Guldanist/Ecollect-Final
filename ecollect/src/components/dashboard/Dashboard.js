@@ -191,7 +191,7 @@ export default class Dashboard extends Component {
                             <div className="container-fluid" style={{ display: 'flex' }}>
                                 <div style={{ display: 'flex', justifyContent: 'flex-start', width: 150 }}>
                                     <i onClick={this.ClickToggleSidebar} id='sidebarbutton' style={{ border: '1px solid #A1A1A1', padding: 10, borderRadius: 5, color: '#A1A1A1', }} class="fas fa-align-justify"></i>
-                                    <img style={{ height: 40 }} src={require('./../../assets/img/logotipo_original.png')}></img>
+                                    <img style={{ height: 40,marginLeft:10 }} src={require('./../../assets/img/logotipo_original.png')}></img>
                                 </div>
                                 <button className="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                     <i className="fas fa-align-justify"></i>
@@ -225,8 +225,8 @@ export default class Dashboard extends Component {
                             <Route exact path="/publicacion/:publi_id" component={Publicacion} /> */}
                         {/* </Switch> */}
                         <Route exact path={this.props.match.url}  component={Publicaciones}/>
-                        <Route path={`${this.props.match.url}/miPerfil`} render={()=>{return(<MiPerfil></MiPerfil>)}}/>
-                        <Route path={`${this.props.match.url}/misPublicaciones`} render={()=>{return(<MisPublicaciones></MisPublicaciones>)}}/>
+                        <Route path={`${this.props.match.url}/miPerfil`} component={MiPerfil}/>
+                        <Route path={`${this.props.match.url}/misPublicaciones`} component={MisPublicaciones}/>
                         <Route path={`${this.props.match.url}/misOfertas`} component={MisOfertas}/>
                         <Route path={`${this.props.match.url}/misMensajes`} component={Mensaje} />
                         <Route path={`${this.props.match.url}/reciclar`} component={Reciclar}/>

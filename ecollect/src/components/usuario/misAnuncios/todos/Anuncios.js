@@ -1,9 +1,17 @@
 import React, { Component } from 'react'
 import './Anuncios.css';
 import axios from 'axios';
+
+import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Spinner from 'react-bootstrap/Spinner'
+import Form from 'react-bootstrap/Form'
+
+import { withRouter } from 'react-router-dom';
 var moment = require('moment');
 
-export default class Anuncios extends Component {
+class Anuncios extends Component {
 
     constructor(props) {
         super(props);
@@ -46,56 +54,62 @@ export default class Anuncios extends Component {
         }
 
     }
+    CalcularFechaPublicacion = (fecha) => {
+        let fecha1 = moment(fecha);
+        let hoy = moment(new Date());
+        let diferencia = hoy.diff(fecha1, 'day')
+        if (diferencia > 0) {
+            return `Hace ${diferencia} días.`;
+        } else {
+            let diferencia = hoy.diff(fecha1, 'hours')
+            if (diferencia > 0) {
+                return `Hace ${diferencia} horas.`;
+            } else {
+                return `Hace unos minutos.`;
+            }
+        }
+    }
+    irAPublicacion = (idpublicacion) => {
+        // console.log("idpublicacion "+idpublicacion);
+        // console.log(this.props);        
+        this.props.history.push(`/dashboard/publicacion/${idpublicacion}`);
+    }
+
 
     render() {
         let { anuncio } = this.props
+        // console.log(anuncio);
 
         return (
 
             <React.Fragment>
-                <div className="row m-4">
-                    {/* col-lg-3 */}
-                    {/* col-xs-12 col-sm-3 col-sm-push-9 */}
-                    {/* container-fluid */}
-                    <div className="wrapper  col-lg-3" style={{height:'100px'}}>
-                        {/* <ImageA src={this.src}/>  */}
-                        {/* <img class="img-responsive" src={'http://localhost:3700/api/getImagesByName/' + anuncio.t_fotos[0].fot_img} alt="" /> */}
-                        <img class="img-responsive" src={anuncio.t_fotos[0].fot_img} alt="" />
-                        {/* <img style="height: 200px; width: 100%; display: block;" src="" alt="Card image"> */}
+                <Card style={{ width: "100%" }}>
+                    <Card.Body>
+                        <Row>
+                            <Col sm={12}>
+                                <Card.Title> Publicación: #{anuncio.publi_id} </Card.Title>
+                                <hr />
+                                <Row>
+                                    <Col md={6} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                                        <Card.Img style={{ maxHeight: 200, marginBottom: 10 }} src={anuncio.t_fotos[0].fot_img} />
+                                        <button className="btn btn-publicacion " onClick={() => {this.irAPublicacion(anuncio.publi_id)}}>Ver publicación</button>
+                                    </Col>
+                                    <Col md={6} style={{ display: 'flex', flexDirection: 'column' }}>
+                                        <Form.Label> <Form.Label style={{ fontWeight: 'bold', marginRight: 10 }}>Descripción:</Form.Label>{anuncio.publi_descripcion}</Form.Label>
+                                        <Form.Label ><Form.Label style={{ fontWeight: 'bold', marginRight: 10 }}> Fecha de Publicación:</Form.Label> {this.CalcularFechaPublicacion(anuncio.publi_fecha)} </Form.Label>
+                                        <Form.Label ><Form.Label style={{ fontWeight: 'bold', marginRight: 10 }}> Estado: </Form.Label>{anuncio.publi_estado == 'p' ?
+                                            (<>Publicado <i class="fas fa-check-double"></i></>) : (<>Finalizada<i class="fas fa-check-circle"></i></>)}</Form.Label>
+                                        {/* <Form.Label ><Form.Label style={{fontWeight:'bold',marginRight:10}}> Teléfono: </Form.Label> {oferta.usu_telefono} </Form.Label>                                                     */}
+                                    </Col>
+                                </Row>                                
+                            </Col>
+                        </Row>
+                    </Card.Body>
+                </Card>
 
-                    </div>
-
-                    <div className="col-lg-9">
-                        <a href="#" className="list-group-item list-group-item-action flex-column align-items-start active" style={{backgroundColor:'green', height:'100%'}}>
-                            <div className="d-flex w-100 justify-content-between" >
-                                <h5 className="mb-1">Descripción</h5>
-                                <small>{this.publicationTime(anuncio.publi_fecha)}</small>
-                            </div>
-                            <p className="mb-1" style={{color:'white'}}>{anuncio.publi_descripcion}</p>
-                            {/* Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit. */}
-                            <small>{anuncio.publi_titu}</small>
-                            {/* Donec id elit non mi porta. */}
-                        </a>
-                        {/* style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);" */}
-                        {/* <div className="btn-group" role="group" aria-label="Button group with nested dropdown">
-                            <button type="button" onClick={this.handleClickDelete} class="btn btn-outline-primary">Executed</button>
-
-
-                            <button type="button" onClick={this.handleClick} class="btn btn-outline-primary">Marcar como Ejecutado</button>
-
-                            <button type="button" className="btn btn-info">Setting</button>
-                            <div className="btn-group" role="group">
-                                <button id="btnGroupDrop3" type="button" className="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                                <div className="dropdown-menu" aria-labelledby="btnGroupDrop3" x-placement="bottom-start" >
-                                    <a className="dropdown-item" href="#">Editar</a>
-                                    <a className="dropdown-item" href="#">Finalizar</a>
-                                </div>
-                            </div>
-
-                        </div> */}
-                    </div>
-                </div>
             </React.Fragment>
         )
     }
 }
+
+export default withRouter(Anuncios);

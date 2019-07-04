@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './Todos.css';
 import Anuncios from './Anuncios';
 import Spinner from 'react-bootstrap/Spinner'
+import Alert from 'react-bootstrap/Alert'
 // import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 export default class Todos extends Component {
@@ -54,40 +55,26 @@ export default class Todos extends Component {
 
     render() {
 
-        let {cargado,publicaciones} = this.state;
-        //console.log(cargado);
-        //console.log(publicaciones);
+        let {cargado,publicaciones} = this.state;    
         
         if(cargado){
             return (
                 <React.Fragment>
-                    <div className="jumbotron">
-                        <hr className="my-4" />
+                    <div style={{backgroundColor:'white',paddingTop:20,paddingRight:20,paddingLeft:20}}>                        
                         <div className="list-group">
-                            <div className="conteiner">
+                            <div className="">
     
                                 {
-                                    publicaciones.map(anuncio=> (<Anuncios key={anuncio.publi_id} anuncio = {anuncio}/>))
+                                    publicaciones.length > 0 ? (publicaciones.map(anuncio => (<Anuncios key={anuncio.publi_id} anuncio={anuncio} />)))
+                                    : (<div style={{ height: 300,display:'flex',alignItems:'center',justifyContent:'center' }}>
+                                            <Alert variant='info'>
+                                                    No se encontraron  Publicaciones
+                                            </Alert>                                            
+                                        </div>)
                                 }
 
                             </div>
-                            {/* <a href="#" className="list-group-item list-group-item-action flex-column align-items-start active">
-                                <div className="d-flex w-100 justify-content-between">
-                                    <h5 className="mb-1">List group item heading</h5>
-                                    <small>3 days ago</small>
-                                </div>
-                                <p className="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                                <small>Donec id elit non mi porta.</small>
-                            </a> */}
-    
-                            {/* <a href="#" className="list-group-item list-group-item-action flex-column align-items-start">
-                                <div className="d-flex w-100 justify-content-between">
-                                    <h5 className="mb-1">List group item heading</h5>
-                                    <small className="text-muted">3 days ago</small>
-                                </div>
-                                <p className="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                                <small className="text-muted">Donec id elit non mi porta.</small>
-                            </a> */}
+                           
                         </div>
                     </div>
                 </React.Fragment>

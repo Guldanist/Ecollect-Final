@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Anuncios from '../todos/Anuncios';
 import Spinner from 'react-bootstrap/Spinner'
-
+import Alert from 'react-bootstrap/Alert'
 export default class Activos extends Component {
 
     constructor(props) {
@@ -31,10 +31,8 @@ export default class Activos extends Component {
                     cargado: true,
                 });
     
-            });
-            
-        }
-        
+            });            
+        }       
        
     }
 
@@ -61,23 +59,23 @@ export default class Activos extends Component {
         if(cargado){
             return (
                 <React.Fragment>
-                    <div className="jumbotron">
-    
-                        <h1 className="display-3">Lista de Anuncios</h1>
-                        {/* <p className="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p> */}
-                        <hr className="my-4" />
+                    <div style={{backgroundColor:'white',paddingTop:20,paddingRight:20,paddingLeft:20}}>                        
                         <div className="list-group">
-                            <div className="conteiner">
+                            <div className="">
     
                                 {
-                                    publicaciones.map(anuncio=> (<Anuncios key={anuncio.publi_id} anuncio = {anuncio}/>))
+                                    publicaciones.length > 0 ? (publicaciones.map(anuncio => (<Anuncios key={anuncio.publi_id} anuncio={anuncio} />)))
+                                    : (<div style={{ height: 300,display:'flex',alignItems:'center',justifyContent:'center' }}>
+                                            <Alert variant='info'>
+                                                    No se encontraron  Publicaciones
+                                            </Alert>                                            
+                                        </div>)
                                 }
 
                             </div>
                            
                         </div>
-                    </div>
-    
+                    </div>                    
                 </React.Fragment>
             )
         }else{

@@ -310,7 +310,7 @@ export class Publicacion extends Component {
                     })
                 // ToastsStore.success("Cita creada con Exito !!!.")
                 setTimeout(() => {
-                    this.props.history.push("/dashboard/misOfertas");
+                    this.props.history.push("/dashboard");
                 }, 3000);
 
             } else {

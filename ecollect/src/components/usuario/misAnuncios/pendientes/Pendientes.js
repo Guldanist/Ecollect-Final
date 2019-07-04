@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Anuncios from '../todos/Anuncios';
 import Spinner from 'react-bootstrap/Spinner'
 
+import Alert from 'react-bootstrap/Alert'
+
 export default class Pendientes extends Component {
 
     constructor(props) {
@@ -11,31 +13,31 @@ export default class Pendientes extends Component {
             cargado: false
         }
     }
-    
-    componentDidMount(){
+
+    componentDidMount() {
         //console.log('Estos son los activos');
-        
+
         let usuLocalStorage = this.obtenerUsuario()
         console.log(usuLocalStorage);
-        if (usuLocalStorage != null){
+        if (usuLocalStorage != null) {
             usuLocalStorage = JSON.parse(usuLocalStorage);
             //console.log(usuLocalStorage);
             //console.log(usuLocalStorage.id);
 
             fetch(`https://backend-ecollect.herokuapp.com/api/publicacion/buscarByIdUsuario/${usuLocalStorage.id}/e`)
-            .then((response) => { return response.json(); })
-            .then((data) => {
-                //console.log(data.content);
-                this.setState({
-                    publicaciones: data.content,
-                    cargado: true,
+                .then((response) => { return response.json(); })
+                .then((data) => {
+                    //console.log(data.content);
+                    this.setState({
+                        publicaciones: data.content,
+                        cargado: true,
+                    });
+
                 });
-    
-            });
-            
+
         }
-        
-       
+
+
     }
 
     obtenerUsuario = () => {
@@ -43,50 +45,49 @@ export default class Pendientes extends Component {
         if (usuLocalStorage) {
             //console.log(usuLocalStorage);
 
-            
+
             return usuLocalStorage
         } else {
             return null
         }
     }
 
-   
+
 
     render() {
 
-        let {cargado,publicaciones} = this.state;
+        let { cargado, publicaciones } = this.state;
         //console.log(cargado);
         //console.log(publicaciones);
-        
-        if(cargado){
+
+        if (cargado) {
             return (
                 <React.Fragment>
-                    <div className="jumbotron">
-    
-                        <h1 className="display-3">Lista de Anuncios</h1>
-                        {/* <p className="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p> */}
-                        <hr className="my-4" />
+                    <div style={{ backgroundColor: 'white', paddingTop: 20, paddingRight: 20, paddingLeft: 20 }}>
                         <div className="list-group">
-                            <div className="conteiner">
-    
+                            <div className="">
                                 {
-                                    publicaciones.map(anuncio=> (<Anuncios key={anuncio.publi_id} anuncio = {anuncio}/>))
+                                    publicaciones.length > 0 ? (publicaciones.map(anuncio => (<Anuncios key={anuncio.publi_id} anuncio={anuncio} />)))
+                                        : (<div style={{ height: 300,display:'flex',alignItems:'center',justifyContent:'center' }}>
+                                                <Alert variant='info'>
+                                                        No se encontraron  Publicaciones
+                                                </Alert>                                            
+                                            </div>)
                                 }
 
                             </div>
-                           
+
                         </div>
                     </div>
-    
                 </React.Fragment>
             )
-        }else{
-            return( 
-                <div className="center"><Spinner style={{marginTop:50}}  animation="border" variant="success" /> </div>
-             )
-            
+        } else {
+            return (
+                <div className="center"><Spinner style={{ marginTop: 50 }} animation="border" variant="success" /> </div>
+            )
+
         }
-        
-       
+
+
     }
 }
