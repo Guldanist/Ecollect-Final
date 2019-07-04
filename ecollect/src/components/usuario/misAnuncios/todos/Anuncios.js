@@ -12,10 +12,10 @@ export default class Anuncios extends Component {
     }
 
     handleClick = (e) => {
-        console.log("Holy, I'm Button");
+        //console.log("Holy, I'm Button");
         // console.log(e);
         let { anuncio } = this.props
-        console.log(anuncio);
+        //console.log(anuncio);
 
         // this.setState({
         //     publi_estado:'0',
@@ -25,43 +25,27 @@ export default class Anuncios extends Component {
 
         // , { publi_estado: 0 }
         axios.put(`https://backend-ecollect.herokuapp.com/api/publicacion/cambiarEstado/${anuncio.publi_id}/a`).then(res => {
-            console.log(res);
+            //console.log(res);
 
         })
     }
 
-
-
-
-
     publicationTime = (date) => {
         let dateThisMoment = moment(date);
         let dateNow = moment(new Date());
-        let difference = dateNow.diff(dateThisMoment, 'day')
+        let difference = dateNow.diff(dateThisMoment, 'día')
         if (difference > 0) {
-            return ` ${difference} days ago`;
+            return ` ${difference} hace días`;
         } else {
-            let difference = dateNow.diff(dateThisMoment, 'hours')
+            let difference = dateNow.diff(dateThisMoment, 'horas')
             if (difference > 0) {
-                return `${difference} hours ago`;
+                return `${difference} hace horas`;
             } else {
-                return `few minutes ago`;
+                return `hace algunos minutos`;
             }
         }
 
     }
-
-    // obtenerUsuario = () => {
-    //     let usuLocalStorage = localStorage.getItem('usuario-ecollect')
-    //     if (usuLocalStorage) {
-    //         console.log(usuLocalStorage);
-
-    //         return usuLocalStorage
-    //     } else {
-    //         return null
-    //     }
-    // }
-
 
     render() {
         let { anuncio } = this.props
@@ -69,11 +53,11 @@ export default class Anuncios extends Component {
         return (
 
             <React.Fragment>
-                <div className="row">
+                <div className="row m-4">
                     {/* col-lg-3 */}
                     {/* col-xs-12 col-sm-3 col-sm-push-9 */}
                     {/* container-fluid */}
-                    <div className="wrapper  col-lg-3 ">
+                    <div className="wrapper  col-lg-3" style={{height:'100px'}}>
                         {/* <ImageA src={this.src}/>  */}
                         {/* <img class="img-responsive" src={'http://localhost:3700/api/getImagesByName/' + anuncio.t_fotos[0].fot_img} alt="" /> */}
                         <img class="img-responsive" src={anuncio.t_fotos[0].fot_img} alt="" />
@@ -82,12 +66,12 @@ export default class Anuncios extends Component {
                     </div>
 
                     <div className="col-lg-9">
-                        <a href="#" className="list-group-item list-group-item-action flex-column align-items-start active">
-                            <div className="d-flex w-100 justify-content-between">
-                                <h5 className="mb-1">Description</h5>
+                        <a href="#" className="list-group-item list-group-item-action flex-column align-items-start active" style={{backgroundColor:'green', height:'100%'}}>
+                            <div className="d-flex w-100 justify-content-between" >
+                                <h5 className="mb-1">Descripción</h5>
                                 <small>{this.publicationTime(anuncio.publi_fecha)}</small>
                             </div>
-                            <p className="mb-1">{anuncio.publi_descripcion}</p>
+                            <p className="mb-1" style={{color:'white'}}>{anuncio.publi_descripcion}</p>
                             {/* Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit. */}
                             <small>{anuncio.publi_titu}</small>
                             {/* Donec id elit non mi porta. */}
