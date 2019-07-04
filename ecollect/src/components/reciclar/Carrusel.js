@@ -42,19 +42,20 @@ export default class Carrusel extends Component {
                 activeIndex={index}
                 direction={direction}
                 onSelect={this.handleSelect}
-                interval={null}>
+                interval={null}
+                style={{display:'flex',alignItems:'center',alignContent:'center',width:400}}>
 
                 {
                     this.state.categoria.map((cat, i) => {
                         // return (<CarruselItem categoria={cat} key={i} />)
-                        return (<Carousel.Item key={i}>
+                        return (<Carousel.Item key={i} >
                                     <img
-                                    className="d-block w-100"
-                                    src="https://placehold.it/500x400/"
+                                    className="d-block"
+                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScqqZFkIro6mqTGMaS2YemQ0nE1L2VtZwT4XUtFGF54OjE05IcXA"
                                     alt="First slide"
                                     />
                                     <Carousel.Caption>
-                                        <h3>{cat.catprod_nombre}</h3>
+                                        <h3 style={{color:'white'}}>{cat.catprod_nombre}</h3>
                                         <p>{cat.catprod_descripcion}</p>
                                     </Carousel.Caption>
                                 </Carousel.Item>)

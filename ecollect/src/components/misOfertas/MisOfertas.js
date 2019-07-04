@@ -49,7 +49,7 @@ export default class MisOfertas extends Component {
 
     irAPublicacion = (idpublicacion) => {
         // console.log("idpublicacion "+idpublicacion);
-        this.props.history.push(`/Publicacion/${idpublicacion}`);
+        this.props.history.replace(`/dashboard/publicacion/${idpublicacion}`);
     }
 
     render() {

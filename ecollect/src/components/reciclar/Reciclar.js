@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-// import Carrusel from './Carrusel';
+import Carrusel from './Carrusel';
 import Mapa from '../mapa/Mapa';
 // Material
 import Stepper from '@material-ui/core/Stepper';
@@ -272,13 +272,13 @@ export default class Reciclar extends Component {
                             <Step >
                                 <StepLabel>{this.lista[1]}</StepLabel>
                                 <StepContent>
-                                    <div className='mb-5'>
-                                        {
+                                    <div className='mb-5' style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+                                        {/* {
                                             this.state.loadCategoria ? (
                                                 <div>
                                                     <select ref={this.selecCategoria} class="custom-select" onChange={this.onChangeCategoria}>
                                                         <option value='0'>Categoria</option>
-                                                        {/* Mapeando Categorias */}
+                                                        
                                                         {
                                                             this.state.categoria.map(elem => {
                                                                 return (<option value={elem.catprod_id}>{elem.catprod_nombre}</option>)
@@ -286,7 +286,8 @@ export default class Reciclar extends Component {
                                                         }
                                                     </select>
                                                 </div>) : (<>Cargando</>)
-                                        }
+                                        } */}
+                                        <Carrusel style={{height:'30%'}} getNombreCategoria = {this.getNombreCategoria} />
                                     </div>
                                     {/* <Typography>Contenido  aqui</Typography> */}
                                     <div >
@@ -313,15 +314,15 @@ export default class Reciclar extends Component {
                             {/* step 3 */}
                             <Step >
                                 <StepLabel>{this.lista[2]}</StepLabel>
-                                <StepContent>
-                                    <div className="row mb-2">
+                                <StepContent >
+                                    <div className="row mb-2 ml-4">
                                         <div className='col-md-8'>
                                             <label htmlFor="inDescripcion" className="">Descripción</label>
                                             <input style={{ backgroundColor: 'white', border: '1px solid #AAAAAA' }} type="text" className="form-control" placeholder="Ejem.: Envases de vidrio" id="inDescripcion"
                                                 onChange={this.onChangeDescripcion} />
                                         </div>
                                     </div>
-                                    <div className="row ">
+                                    <div className="row  ml-4">
                                         <div className="col-md-4">
                                             <label htmlFor="inCantidad">Cantidad</label>
                                             <input style={{ backgroundColor: 'white', border: '1px solid #AAAAAA' }} type="number" className="form-control" placeholder="Ejem.: 20" id="inCantidad"
@@ -341,7 +342,7 @@ export default class Reciclar extends Component {
                                         </select>
                                     </div> */}
                                     </div>
-                                    <div className='row mb-5' >
+                                    <div className='row mb-5  ml-4' >
                                         <div className='col-md-8' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                             <img style={{ maxWidth: 300, maxHeight: 300 }} alt="" id="imgReciclado" />
                                             <br />

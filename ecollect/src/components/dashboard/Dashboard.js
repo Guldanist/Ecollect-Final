@@ -227,7 +227,7 @@ export default class Dashboard extends Component {
                         <Route exact path={this.props.match.url}  component={Publicaciones}/>
                         <Route path={`${this.props.match.url}/miPerfil`} render={()=>{return(<MiPerfil></MiPerfil>)}}/>
                         <Route path={`${this.props.match.url}/misPublicaciones`} render={()=>{return(<MisPublicaciones></MisPublicaciones>)}}/>
-                        <Route path={`${this.props.match.url}/misOfertas`} render={()=>{return(<MisOfertas></MisOfertas>)}}/>
+                        <Route path={`${this.props.match.url}/misOfertas`} component={MisOfertas}/>
                         <Route path={`${this.props.match.url}/misMensajes`} component={Mensaje} />
                         <Route path={`${this.props.match.url}/reciclar`} component={Reciclar}/>
                         <Route path={`${this.props.match.url}/publicaciones`} component={Publicaciones}/>
