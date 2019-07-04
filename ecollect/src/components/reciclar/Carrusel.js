@@ -51,7 +51,7 @@ export default class Carrusel extends Component {
                         return (<Carousel.Item key={i} >
                                     <img
                                     className="d-block"
-                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScqqZFkIro6mqTGMaS2YemQ0nE1L2VtZwT4XUtFGF54OjE05IcXA"
+                                    src={cat.catprod_foto}
                                     alt="First slide"
                                     />
                                     <Carousel.Caption>
