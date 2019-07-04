@@ -227,14 +227,14 @@ export class Registrar extends Component {
                         pauseOnHover={false}
                     />
                     <div className="row ">
-                        <div className="col-md-4 py-5 bg-primary text-black text-center ">
-                            <div className="card-body">
-                                <img style={{ width: "100%" }} src="http://www.ansonika.com/mavia/img/registration_bg.svg" />
-                                <h2 className="py-3">Registro</h2>
-                                <p>Registrate para que puedas ayudar al planeta y obtener beneficios en el camino</p>
-                            </div>
+                        <div className="col-md-5 py-5 bg-primary text-black text-center " id="imgregistro">
+                        {/* <img style={{ width: "100%" }} src={require('./../../assets/img/registro.png')} /> */}
+                            {/* <div className="card-body"> */}                                
+                                {/* <h2 className="py-3">Registro</h2>
+                                <p>Registrate para que puedas ayudar al planeta y obtener beneficios en el camino</p> */}
+                            {/* </div> */}
                         </div>
-                        <div className="col-md-8 py-5 border">
+                        <div className="col-md-7 py-5 border">
                             <h4 className="pb-4">Llena los siguientes datos</h4>
                             <form>
                                 <div className="form-row">
@@ -260,13 +260,13 @@ export class Registrar extends Component {
                                 <div className="form-row">
                                     <div className="form-group col-md-6">
                                         <img hidden className="profile-avatar" alt="" id="imgUsuario" />
-                                        <label htmlFor="Nueva">Haga click para insertar su foto</label>
+                                        <label htmlFor="Nueva">Haga click para agregar su foto</label>
                                         <input id="Nueva" type="file" accept="image/*" name="image" onChange={this.handleInputChange} />
                                     </div>
                                     <div className="form-group col-md-6">
                                         <Button variant="primary" onClick={this.handleShow}>
-                                            Haga click para enviar su ubicacion
-                                    </Button>
+                                            Haga click para enviar su ubicación
+                                        </Button>
 
                                         <Modal show={this.state.show} onHide={this.handleClose}>
                                             <Modal.Header closeButton>

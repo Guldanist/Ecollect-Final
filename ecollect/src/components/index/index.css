@@ -105,6 +105,10 @@ body {
     background-image: url('./../../assets/img/carrusel3.png') ;
     background-size: cover;
   }
+  #imgregistro{
+    background-image: url('./../../assets/img/registro.png') ;
+    background-size: cover;
+  }
 
 /* comentarios de clientes */
 .tituloC{
