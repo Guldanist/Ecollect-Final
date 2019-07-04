@@ -8,4 +8,5 @@ export var CategoriaRouter=Router();
  */
 CategoriaRouter.get('/categoria',CateogiraController.getCategorias);
 CategoriaRouter.post('/categoria',CateogiraController.createCategoria);
+CategoriaRouter.post('/categoria/imagen',CateogiraController.uploadImage);
 

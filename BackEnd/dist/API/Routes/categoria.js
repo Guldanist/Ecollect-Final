@@ -9,3 +9,4 @@ exports.CategoriaRouter = express_1.Router();
  */
 exports.CategoriaRouter.get('/categoria', categoria_1.CateogiraController.getCategorias);
 exports.CategoriaRouter.post('/categoria', categoria_1.CateogiraController.createCategoria);
+exports.CategoriaRouter.post('/categoria/imagen', categoria_1.CateogiraController.uploadImage);

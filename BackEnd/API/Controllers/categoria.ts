@@ -50,6 +50,28 @@ export var CateogiraController = {
             });
         });
     },  
+    uploadImage:(req:Request,res:Response)=>{
+        let{catprod_id,catprod_foto}=req.body;             
+        // console.log(usu_avatar);
+            CategoriaProducto.update({catprod_foto:catprod_foto},{where: {catprod_id:catprod_id}}).then((datos_actualizados:any)=>{
+                if(datos_actualizados[0]>0){
+                    res.status(200).json({
+                        message:"updated",
+                        content:datos_actualizados[0]
+                    });
+                }else{
+                    res.status(400).json({
+                        message:"not updated",
+                        content:null
+                    });
+                }
+            }).catch((error:any)=>{
+                res.status(400).json({
+                    message:"not updated",
+                    content:error
+                });
+            });;                    
+    },
 
 
 }
